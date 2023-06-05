@@ -1,0 +1,117 @@
+.toast-container {
+  cursor: pointer;
+  opacity: 0;
+  width: 22.5rem;
+  transition: all 0.3s;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 1rem .8rem .8rem 1rem;
+  position: relative;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+
+  .toast-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .toast-group__top {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .toast-group__icon {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
+      p.toast-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #ffffff;
+        line-height: 1.2rem;
+      }
+    }
+
+    .toast-group__bottom {
+      p.toast-content {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .toast-timer {
+    height: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 8px;
+    animation: widthAnimation var(--animation-speed) linear;
+    background: linear-gradient(45deg, #2b6bbf, #10425b);
+    animation-iteration-count: 1;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+  }
+}
+
+.toast-container.right {
+  transform: translateX(120%);
+}
+
+.toast-container.left {
+  transform: translateX(-120%);
+}
+
+.toast-container.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast-container.visible:hover {
+  opacity: .80;
+  .toast-timer {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes widthAnimation {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.toast-container.danger {
+  background: linear-gradient(45deg, #d10303, #f77676);
+}
+
+.toast-container.success {
+  background: linear-gradient(45deg, #00bd6e, #58D77C);
+}
+
+.toast-container.info {
+  background: linear-gradient(45deg, #5b9dcb, #9cd1f7);
+}
+
+.toast-container.warning {
+  background: linear-gradient(45deg, #f58802, #ffc600);
+}
+
+.toast-container svg {
+  color: #fff;
+  fill: #ffffff;
+  width: 30px;
+  height: 30px;
+}
+
+.toast-container img {
+  width: 30px;
+}

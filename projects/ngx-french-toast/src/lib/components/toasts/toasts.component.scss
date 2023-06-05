@@ -1,0 +1,35 @@
+.toasts-container {
+  position: fixed;
+  display: flex;
+  gap: .5rem;
+  z-index: 1050;
+  padding: 1rem;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.toasts-container.bottom-right {
+  bottom: 0rem;
+  right: 0rem;
+  flex-direction: column;
+}
+
+.toasts-container.bottom-left {
+  bottom: 0rem;
+  left: 0rem;
+  flex-direction: column;
+}
+
+.toasts-container.top-right {
+  top: 0rem;
+  right: 0rem;
+  flex-direction: column-reverse;
+}
+
+.toasts-container.top-left {
+  top: 0rem;
+  left: 0rem;
+  flex-direction: column-reverse;
+}
