@@ -4,6 +4,7 @@ import { ToastComponent } from './components/toasts/toast/toast.component';
 import { CommonModule } from '@angular/common';
 import { ToastConfig } from './interfaces/interfaces';
 import { TOAST_CONFIG } from './toast.tokens';
+import { ToastPosition } from './enums/enums';
 
 @NgModule({
   declarations: [
@@ -18,9 +19,14 @@ import { TOAST_CONFIG } from './toast.tokens';
   ]
 })
 
-
 export class FrenchToastModule {
-  static forRoot(config: ToastConfig): ModuleWithProviders<FrenchToastModule> {
+  static forRoot(config?: ToastConfig): ModuleWithProviders<FrenchToastModule> {
+    if (!config) {
+      config = {
+        position: ToastPosition.BOTTOM_RIGHT,
+        defaultDuration: 10000
+      }
+    }
     return {
       ngModule: FrenchToastModule,
       providers: [
