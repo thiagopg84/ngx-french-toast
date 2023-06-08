@@ -1,6 +1,6 @@
 {
   "name": "ngx-french-toast",
-  "version": "0.0.1-beta",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
