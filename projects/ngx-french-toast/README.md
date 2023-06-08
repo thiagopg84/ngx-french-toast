@@ -159,10 +159,6 @@ Note: Make sure to provide the correct path to the image or SVG file. Parfait!
 
 Contributions to ngx-french-toast are welcome! If you find a bug, have a feature request, or want to contribute code improvements, please submit an issue, or fork it, or just let me know and we'll figure it out :D
 
-## License
-
-ngx-french-toast is licensed under the  MIT License. Feel free to use, modify, and distribute this library in accordance with the license terms.
-
 ## Contact
 
 If you have any questions, suggestions, or feedback, you can reach out to me via <a mailto="thiago2k9@gmail.com">thiago2k9@gmail.com</a> or find me on <a href="https://www.linkedin.com/in/thiagoguterman" target="_blank">LinkedIn</a>. Don't hesitate to say "Bonjour!" and share your thoughts. Let's connect and make the ngx-french-toast community even stronger! 💪🥐
