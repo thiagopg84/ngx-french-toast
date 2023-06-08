@@ -19,7 +19,7 @@ To install ngx-french-toast, simply follow these étapes:
 npm install ngx-french-toast
 ```
 
-Import the `FrenchToastModule` in your Angular module:
+2. Import the `FrenchToastModule` in your Angular module:
 
 ```typescript
 import { FrenchToastModule } from 'ngx-french-toast';
@@ -47,7 +47,7 @@ const config: ToastConfig = {
 export class AppModule { }
 ```
 
-Add the `FrenchToastComponent` selector in your `app.component.html` (or wherever you want to):
+3. Add the `FrenchToastComponent` selector in your `app.component.html` (or wherever you want to):
 
 ```html
 <french-toast></french-toast>
@@ -78,6 +78,8 @@ export class ExampleComponent {
   }
 }
 ```
+
+4. That's it! You're ready to start using ngx-french-toast in your Angular application.
 
 ## Embedding Components Dynamically
 
