@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:lib": "ng-packagr -p projects/ngx-french-toast/ng-package.json"
+    "publish": "ng-packagr -p projects/ngx-french-toast/ng-package.json && cd dist/ngx-french-toast && npm publish"
   },
   "private": true,
   "dependencies": {
