@@ -1,6 +1,6 @@
-<div style="padding:20px 0; display: flex; justify-content: center;">
+<p align="center">
   <img src="projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="134px" height="200px" />
-</div>
+</p>
 
 # ngx-french-toast
 ## Features
