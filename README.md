@@ -1,4 +1,4 @@
-<div style="text-align: center; padding:20px 0">
+<div style="padding:20px 0; display: flex; justify-content: center;">
   <img src="projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="134px" height="200px" />
 </div>
 
