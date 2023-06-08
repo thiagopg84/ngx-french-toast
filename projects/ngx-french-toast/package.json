@@ -11,5 +11,6 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
-  }
+  },
+  "main": "src/public-api.ts"
 }
