@@ -1,60 +1,57 @@
-<pre><code># ngx-french-toast
+<div style="text-align: center; padding:20px 0">
+  <img src="logo.png" alt="ngx-french-toast logo" width="134px" height="200px" />
+</div>
 
-![ngx-french-toast logo](logo.png){:width="134px" height="200px"}
-
-A light-weight toast library for Angular 14+.
-
+# ngx-french-toast
 ## Features
 
-- Fully built in Angular 14, without any external dependencies
-- Customizable toast appearance, including duration, colors, and positioning
-- Unique feature: Dynamically embed components within the toast for maximum flexibility and creativity
+- Fully built in Angular 14, without any external dependencies. Oui, très indépendant!
+- Customizable toast appearance, including duration, colors, and positioning. Like a beret, you can style it to perfection!
+- Unique feature: Dynamically embed components within the toast for maximum flexibility and créativité. C'est magnifique!
 
 ## Installation
 
-To install ngx-french-toast, simply follow these steps:
+To install ngx-french-toast, simply follow these étapes:
 
 1. Run the following command to install the package via npm:
 
-  <pre><code>npm install ngx-french-toast</code></pre>
+```
+npm install ngx-french-toast
+```
 
-2. Import the `FrenchToastModule` in your Angular module:
+Import the `FrenchToastModule` in your Angular module:
 
-  <pre><code>```typescript
-  import { FrenchToastModule } from 'ngx-french-toast';
-  import { ToastPosition } from 'ngx-french-toast';
+```typescript
+import { FrenchToastModule } from 'ngx-french-toast';
+import { ToastPosition } from 'ngx-french-toast';
 
-  // optional configuration object:
-    const config: ToastConfig = {
-      colors: {
-        danger: '#a20000',
-        info: '#2d96f8',
-        success: '#2df877',
-        warning: '#f8bb2d'
-      },
-      defaultDuration: 100000,
-      position: ToastPosition.BOTTOM_RIGHT
-    };
+// optional configuration object:
+const config: ToastConfig = {
+  colors: {
+    danger: '#a20000',
+    info: '#2d96f8',
+    success: '#2df877',
+    warning: '#f8bb2d'
+  },
+  defaultDuration: 100000,
+  position: ToastPosition.TOP_RIGHT // As elegant as the Eiffel Tower!
+};
 
-   @NgModule({
-    imports: [
-      // ...
-      FrenchToastModule.forRoot(config)
-    ],
+@NgModule({
+  imports: [
     // ...
-  })
-  export class AppModule { }
-  ```</code></pre>
+    FrenchToastModule.forRoot(config)
+  ],
+  // ...
+})
+export class AppModule { }
+```
 
-3. Add the `FrenchToastComponent` selector in your `app.component.html` (or wherever you want to):
+Add the `FrenchToastComponent` selector in your `app.component.html` (or wherever you want to):
 
 ```html
 <french-toast></french-toast>
 ```
-
-This will ensure that the ngx-french-toast component is rendered in your application.
-
-4. That's it! You're ready to start using ngx-french-toast in your Angular application.
 
 ## Usage
 
@@ -76,66 +73,85 @@ export class ExampleComponent {
   showToast(): void {
     this.toastService.success({
       title: 'Knock, knock!',
-      content: 'Who\'s there? Eiffel. Eiffel who? Eiffel in love with you!'
+      content: 'Who\'s there? Eiffel. Eiffel who? Eiffel in love with you!' // Mon Dieu, l'amour!
     });
   }
 }
 ```
 
-### Embedding Components Dynamically
+## Embedding Components Dynamically
 
-To embed components dynamically, follow these steps:
+To embed components dynamically just call any method from your instance of `ToastService` and pass an object with the `component` and `title` properties. For example:
 
-1. Call any method from your instance of `ToastService` and pass an object with the `component` and `title`. For example:
+```typescript
+this.toastService.success({
+  component: ExampleComponent,
+  title: 'Oui, mon ami!'
+});
+```
 
-   ```typescript
-   this.toastService.success({ component: ExampleComponent, title: 'Oui, mon ami!' });
-   ```
+### Programatically closing the parent toast from the embedded component
+To close the parent toast from the embedded component, users should follow these steps:
 
-2. In the embedded component (e.g., `ExampleComponent`), create an `EventEmitter` called `destroyToast` and emit `true` when you want to close the parent toast. For example:
+1. In the embedded component (e.g., `ExampleComponent`), define an `EventEmitter` named `destroyToast` as an `@Output()` property:
 
-   ```typescript
-   import { Output, EventEmitter } from '@angular/core';
+```typescript
+@Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false)`;
+```
 
-   @Component({
-     selector: 'app-example',
-     template: `
-       <button (click)="rate(5, $event)">Five stars!</button>;
-     `
-   })
-   export class ExampleComponent {
-     @Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+2. Emit the `destroyToast` event with `true` as the value when the desired action occurs.
 
-     rate(rate: number, event: Event): void {
-       event.stopPropagation();
-       this.someApi.rate(rate).subscribe({
-         next: () => {
-           this.destroyToast.emit(true);
-         }
-       });
-     }
-   }
-   ```
 
-   The `destroyToast` event emitter allows the embedded component to communicate with the parent toast and close it.
+### Preventing the toast from closing when your embedded component needs a button
+To prevent the toast from closing when users click on a button in your embedded component, you should grab the click event like this (I know it's not parfait, I'll try to find a better solution for this in the near future 😬):
+```html
+<button (click)="rate(5, $event)">Five stars!</button>;
+```
 
-### Using Icons
+And on your TS file, you should use `event.stopPropagation()`. To summarize, here's an example for the whole section:
+
+```typescript
+import { Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'app-example',
+  template: `
+    <button (click)="rate(5, $event)">Five stars!</button>;
+  `
+})
+export class ExampleComponent {
+  @Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+
+  rate(rate: number, event: Event): void {
+    event.stopPropagation();
+    this.someApi.rate(rate).subscribe({
+      next: () => {
+        this.destroyToast.emit(true);
+      }
+    });
+  }
+}
+```
+
+The `destroyToast` event emitter allows the embedded component to communicate with the parent toast and close it. Très beau!
+
+## Using Icons
 
 You can customize the toast appearance by adding icons. Simply pass an `icon` property inside the config object when calling the toast service. The `icon` property accepts a string that can link directly to images or SVG sprite files. Here are a few examples:
 
-- Using an SVG from a sprite:
+Using an SVG from a sprite:
 
-   ```typescript
-   this.toastService.success({ title: 'Success', icon: '../assets/svg/sprite.svg#icon-success' });
-   ```
+```typescript
+this.toastService.success({ title: 'Success', icon: '../assets/svg/sprite.svg#icon-success' }); // Comme un baguette of success!
+```
 
-- Using an image:
+Using an image:
 
-   ```typescript
-   this.toastService.success({ title: 'Success', icon: '../assets/imgs/success.png' });
-   ```
+```typescript
+this.toastService.success({ title: 'Success', icon: '../assets/imgs/success.png' }); // C'est magnifique!
+```
 
-   Note: Make sure to provide the correct path to the image or SVG file.
+Note: Make sure to provide the correct path to the image or SVG file. Parfait!
 
 ## Contributions
 
@@ -153,10 +169,9 @@ This means that you are free to use, modify, and distribute this library under t
 For more details, please refer to the GNU General Public License (GPL) file.
 
 ## Contact
-If you have any questions, suggestions, or feedback, you can reach out to me via <a href="mailto:thiago2k9@gmail.com">thiago2k9@gmail.com</a> or find me on <a href="https://linkedin.com/in/thiagoguterman" target="_blank">LinkedIn</a>.
 
-Made with ❤️ with ![Angular](angular.svg){:width="100px" height="100px"}
+If you have any questions, suggestions, or feedback, you can reach out to me via <a mailto="thiago2k9@gmail.com">thiago2k9@gmail.com</a> or find me on <a href="https://www.linkedin.com/in/thiagoguterman" target="_blank">LinkedIn</a>. Don't hesitate to say "Bonjour!" and share your thoughts. Let's connect and make the ngx-french-toast community even stronger! 💪🥐
 
-Thank you for using ngx-french-toast! I hope it brings a touch of humor and creativity to your Angular applications.
-</code></pre>
-```
+Made with ❤️ with Angular <img src="angular.svg" alt="ngx-french-toast logo" width="15px" height="15px" /> and lots of croissants.
+
+Merci beaucoup for using ngx-french-toast! I hope it brings a touch of créativité to your Angular applications. Bon appétit! 🍞
