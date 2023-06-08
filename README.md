@@ -53,6 +53,8 @@ export class AppModule { }
 <french-toast></french-toast>
 ```
 
+4. That's it! You're ready to start using ngx-french-toast in your Angular application.
+
 ## Usage
 
 Here's a simple example demonstrating how to use ngx-french-toast:
@@ -78,8 +80,6 @@ export class ExampleComponent {
   }
 }
 ```
-
-4. That's it! You're ready to start using ngx-french-toast in your Angular application.
 
 ## Embedding Components Dynamically
 
