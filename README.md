@@ -161,14 +161,7 @@ Contributions to ngx-french-toast are welcome! If you find a bug, have a feature
 
 ## License
 
-ngx-french-toast is licensed under the GNU General Public License (GPL).
-
-This means that you are free to use, modify, and distribute this library under the terms of the GPL license. However, please note the following key points regarding the GPL:
-
-- Any modifications or derivative works you make to ngx-french-toast must be distributed under the same GPL license.
-- If you distribute ngx-french-toast as part of another project, that project must also be licensed under the GPL if it includes or uses ngx-french-toast code.
-
-For more details, please refer to the GNU General Public License (GPL) file.
+ngx-french-toast is licensed under the  MIT License. Feel free to use, modify, and distribute this library in accordance with the license terms.
 
 ## Contact
 
