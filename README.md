@@ -96,7 +96,7 @@ To close the parent toast from the embedded component, users should follow these
 1. In the embedded component (e.g., `ExampleComponent`), define an `EventEmitter` named `destroyToast` as an `@Output()` property:
 
 ```typescript
-@Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false)`;
+@Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 ```
 
 2. Emit the `destroyToast` event with `true` as the value when the desired action occurs.
