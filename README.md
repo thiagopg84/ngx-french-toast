@@ -1,6 +1,6 @@
 # ngx-french-toast
 <p align="center">
-  <img src="./projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="134px" height="200px" />
+  <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/master/projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="134px" height="200px" />
 </p>
 
 # Features
@@ -163,6 +163,6 @@ Contributions to ngx-french-toast are welcome! If you find a bug, have a feature
 
 If you have any questions, suggestions, or feedback, you can reach out to me via <a mailto="thiago2k9@gmail.com">thiago2k9@gmail.com</a> or find me on <a href="https://www.linkedin.com/in/thiagoguterman" target="_blank">LinkedIn</a>. Don't hesitate to say "Bonjour!" and share your thoughts. Let's connect and make the ngx-french-toast community even stronger! 💪🥐
 
-Made with ❤️ with Angular <img src="./projects/ngx-french-toast/angular.svg" alt="Angular Logo" width="15px" height="15px" /> and lots of croissants.
+Made with ❤️ with Angular <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/dec8ce282b401a89bc4a4bb536a0662888290eda/projects/ngx-french-toast/angular.svg" alt="Angular Logo" width="15px" height="15px" /> and lots of croissants.
 
 Merci beaucoup for using ngx-french-toast! I hope it brings a touch of créativité to your Angular applications. Bon appétit! 🍞
