@@ -8,7 +8,7 @@ import { DynamicComponentComponent } from './dynamic-component/dynamic-component
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'test-app';
+  title = 'test-app!';
   color1: string = '#ff0000';
   color2: string = '';
   linearGradient: string = '';
