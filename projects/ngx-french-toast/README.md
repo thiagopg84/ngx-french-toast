@@ -53,7 +53,7 @@ export class AppModule { }
 <french-toast></french-toast>
 ```
 
-4. That's it! You're ready to start using ngx-french-toast in your Angular application.
+4. Et voilà! You're ready to start using ngx-french-toast in your Angular application.
 
 # Usage
 
@@ -163,6 +163,6 @@ Contributions to ngx-french-toast are welcome! If you find a bug, have a feature
 
 If you have any questions, suggestions, or feedback, you can reach out to me via <a mailto="thiago2k9@gmail.com">thiago2k9@gmail.com</a> or find me on <a href="https://www.linkedin.com/in/thiagoguterman" target="_blank">LinkedIn</a>. Don't hesitate to say "Bonjour!" and share your thoughts. Let's connect and make the ngx-french-toast community even stronger! 💪🥐
 
-Made with ❤️ with Angular <img src="angular.svg" alt="ngx-french-toast logo" width="15px" height="15px" /> and lots of croissants.
+Made with ❤️ with Angular <img src="angular.svg" alt="Angular Logo" width="15px" height="15px" /> and lots of croissants.
 
 Merci beaucoup for using ngx-french-toast! I hope it brings a touch of créativité to your Angular applications. Bon appétit! 🍞

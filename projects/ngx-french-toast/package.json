@@ -1,6 +1,6 @@
 {
   "name": "ngx-french-toast",
-  "version": "0.9.04-beta",
+  "version": "0.9.5",
   "license": "Apache-2.0",
   "peerDependencies": {
     "@angular/common": "^14.2.0",
@@ -11,5 +11,13 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
-  }
+  },
+  "keywords": [
+    "toast",
+    "angular",
+    "toastr",
+    "ngx-toastr",
+    "ngx-french-toast",
+    "ngx-french-toastr"
+  ]
 }
