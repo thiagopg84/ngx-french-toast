@@ -8,6 +8,7 @@ export interface ToastConfig {
     danger?: string | undefined;
     warning?: string | undefined;
     info?: string | undefined;
+    timebar?: string | undefined;
   } | undefined;
 }
 

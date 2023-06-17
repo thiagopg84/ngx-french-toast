@@ -33,19 +33,14 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   bottomLeft: ToastPosition = ToastPosition.BOTTOM_LEFT;
   topRight: ToastPosition = ToastPosition.TOP_RIGHT;
   topLeft: ToastPosition = ToastPosition.TOP_LEFT;
-  colors: {
-    success?: string;
-    danger?: string;
-    warning?: string;
-    info?: string;
-  } = {};
   linearGradient: string = '';
   toastConfig!: ToastConfig;
+  timebarColor!: { background: string };
 
   constructor(@Inject(TOAST_CONFIG) private config: ToastConfig) {
-    this.toastConfig = config;
-    if (this.config.position) {
-      this.position = this.config.position;
+    this.toastConfig = this.config;
+    if (this.toastConfig.position) {
+      this.position = this.toastConfig.position;
     }
   }
 
@@ -116,9 +111,22 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   }
 
   getColors(): void {
+    if (!this.toastConfig?.colors) return;
+    this.getToastBackgrounds();
+    this.getTimebarColor();
+  }
+
+  getToastBackgrounds(): void {
     const colorHexCode: string = this.toastConfig?.colors?.[this.toast.type] as string;
     if (!colorHexCode) return;
     const darkenedColorHexCode = darkenHexColor(colorHexCode as string, .725)
     this.linearGradient = `linear-gradient(45deg, ${darkenedColorHexCode}, ${colorHexCode})`;
+  }
+
+  getTimebarColor(): void {
+    if (!this.toastConfig.colors?.timebar) return;
+    this.timebarColor = {
+      background: this.toastConfig.colors?.timebar as string
+    };
   }
 }

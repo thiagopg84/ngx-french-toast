@@ -1,6 +1,6 @@
 {
   "name": "ngx-french-toast",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "license": "Apache-2.0",
   "peerDependencies": {
     "@angular/common": "^14.2.0",
