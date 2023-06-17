@@ -3,6 +3,8 @@
   <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/master/projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="134px" height="200px" />
 </p>
 
+<a href="CHANGELOG.md"><b>Check the Changelog for updates! 📌 </b></a>
+
 # Features
 
 - Fully built in Angular 14, without any external dependencies. Oui, très indépendant!
@@ -22,8 +24,7 @@ npm install ngx-french-toast
 2. Import the `FrenchToastModule` in your Angular module:
 
 ```typescript
-import { FrenchToastModule } from 'ngx-french-toast';
-import { ToastPosition } from 'ngx-french-toast';
+import { FrenchToastModule, ToastPosition, ToastConfig } from 'ngx-french-toast';
 
 // optional configuration object:
 const config: ToastConfig = {
@@ -31,7 +32,8 @@ const config: ToastConfig = {
     danger: '#a20000',
     info: '#2d96f8',
     success: '#2df877',
-    warning: '#f8bb2d'
+    warning: '#f8bb2d',
+    timebar: 'linear-gradient(45deg, #2b6bbf, #10425b)' // or a single color
   },
   defaultDuration: 100000,
   position: ToastPosition.TOP_RIGHT // As elegant as the Eiffel Tower!
