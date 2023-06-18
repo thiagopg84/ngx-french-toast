@@ -2,6 +2,8 @@
 
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
+---
+
 ## **0.9.7** (2023-06-17)
 
 ### Added
@@ -23,7 +25,5 @@ All notable changes to the `ngx-french-toast` library will be documented in this
     })
   ],
   ...
-})
+  })
   ```
-
----

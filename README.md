@@ -11,6 +11,8 @@
 - Customizable toast appearance, including duration, colors, and positioning. Like a beret, you can style it to perfection!
 - Unique feature: Dynamically embed components within the toast for maximum flexibility and créativité. C'est magnifique!
 
+<br>
+
 # Installation
 
 To install ngx-french-toast, simply follow these étapes:
@@ -57,6 +59,8 @@ export class AppModule { }
 
 4. Et voilà! You're ready to start using ngx-french-toast in your Angular application.
 
+<br>
+
 # Usage
 
 Here's a simple example demonstrating how to use ngx-french-toast:
@@ -82,6 +86,26 @@ export class ExampleComponent {
   }
 }
 ```
+<br>
+
+# Toast Types
+
+ngx-french-toast provides 4 toast types. Each of them has its own method:
+
+- `success()`: Shows a success toast. C'est magnifique!
+- `danger()`: Shows a danger toast. Oh là là!
+- `info()`: Shows an info toast. Voilà!
+- `warning()`: Shows a warning toast. Attention!
+
+You can use these methods of your `ToastService` instance to show toasts in your application. For example:
+
+```typescript
+this.toastService.success({ title: 'Success', content: 'Your task has been completed with finesse!' });
+this.toastService.danger({ title: 'Danger', content: 'Something went wrong! Oh là là!' });
+this.toastService.info({ title: 'Info', content: 'Here are some important details for you.' });
+this.toastService.warning({ title: 'Warning', content: 'Be cautious! Danger may be lurking nearby.' });
+```
+<br>
 
 # Embedding Components Dynamically
 
@@ -94,6 +118,8 @@ this.toastService.success({
 });
 ```
 
+<br>
+
 ## Programatically closing the parent toast from the embedded component
 To close the parent toast from the embedded component, users should follow these steps:
 
@@ -104,6 +130,8 @@ To close the parent toast from the embedded component, users should follow these
 ```
 
 2. Emit the `destroyToast` event with `true` as the value when the desired action occurs.
+
+<br>
 
 
 ## Preventing the toast from closing when your embedded component needs a button
@@ -139,6 +167,8 @@ export class ExampleComponent {
 
 The `destroyToast` event emitter allows the embedded component to communicate with the parent toast and close it. Très beau!
 
+<br>
+
 # Using Icons
 
 You can customize the toast appearance by adding icons. Simply pass an `icon` property inside the config object when calling the toast service. The `icon` property accepts a string that can link directly to images or SVG sprite files. Here are a few examples:
@@ -157,14 +187,18 @@ this.toastService.success({ title: 'Success', icon: '../assets/imgs/success.png'
 
 Note: Make sure to provide the correct path to the image or SVG file. Parfait!
 
+<br>
+
 # Contributions
 
-Contributions to ngx-french-toast are welcome! If you find a bug, have a feature request, or want to contribute code improvements, please submit an issue, or fork it, or just let me know and we'll figure it out :D
+Contributions to ngx-french-toast are welcome! If you find a bug, have a feature request, or want to contribute code improvements, please submit an issue, or fork it, or just let me know and we'll figure it out 😊
+
+<br>
 
 # Contact
 
 If you have any questions, suggestions, or feedback, you can reach out to me via <a mailto="thiago2k9@gmail.com">thiago2k9@gmail.com</a> or find me on <a href="https://www.linkedin.com/in/thiagoguterman" target="_blank">LinkedIn</a>. Don't hesitate to say "Bonjour!" and share your thoughts. Let's connect and make the ngx-french-toast community even stronger! 💪🥐
 
-Made with ❤️ with Angular <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/dec8ce282b401a89bc4a4bb536a0662888290eda/projects/ngx-french-toast/angular.svg" alt="Angular Logo" width="15px" height="15px" /> and lots of croissants.
+Made with ❤️ (and lots of croissants) for Angular  <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/dec8ce282b401a89bc4a4bb536a0662888290eda/projects/ngx-french-toast/angular.svg" alt="Angular Logo" width="15px" height="15px" />.
 
 Merci beaucoup for using ngx-french-toast! I hope it brings a touch of créativité to your Angular applications. Bon appétit! 🍞
