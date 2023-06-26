@@ -37,9 +37,7 @@ export interface ToastInputModel {
   duration?: number;
   _id?: string;
   icon?: string | null;
-  customIcon?: boolean;
   component?: any;
-  functionality?: string;
 };
 
 export interface ToastModel extends ToastInputModel {

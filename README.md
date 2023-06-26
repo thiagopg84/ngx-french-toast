@@ -38,7 +38,8 @@ const config: ToastConfig = {
     timebar: 'linear-gradient(45deg, #2b6bbf, #10425b)' // or a single color
   },
   defaultDuration: 100000,
-  position: ToastPosition.TOP_RIGHT // As elegant as the Eiffel Tower!
+  position: ToastPosition.TOP_RIGHT, // As elegant as the Eiffel Tower!
+  limit: 3
 };
 
 @NgModule({
@@ -104,6 +105,22 @@ this.toastService.success({ title: 'Success', content: 'Your task has been compl
 this.toastService.danger({ title: 'Danger', content: 'Something went wrong! Oh là là!' });
 this.toastService.info({ title: 'Info', content: 'Here are some important details for you.' });
 this.toastService.warning({ title: 'Warning', content: 'Be cautious! Danger may be lurking nearby.' });
+```
+<br>
+
+# Toast Input Object
+
+Each toast has the following customizable properties:
+
+```typescript
+    this.toastService.success({
+      title: 'Toast Title',
+      content: 'Lorem ipsum dolor sit amet.', // this will be ignored if you're embedding a component ;)
+      _id: `success-toast--${this.id}`, // if you leave it blank, the ID will be automatically generated
+      component: SomeComponent,
+      duration: 10000,
+      icon: '../assets/svg/sprite.svg#icon-success' // or a URL of a .png, for example
+    });
 ```
 <br>
 

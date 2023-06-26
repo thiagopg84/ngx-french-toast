@@ -30,7 +30,6 @@ export class ToastService {
       duration: toastInput.duration,
       icon: toastInput?.icon ?? null,
       type,
-      customIcon: toastInput.customIcon,
       component: toastInput.component,
     };
     this.toast.next(newToast);
