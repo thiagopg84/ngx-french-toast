@@ -19,7 +19,8 @@ import { DynamicComponentComponent } from './dynamic-component/dynamic-component
       colors: {
         // success: '#58D77C',
         // danger: '#f77676',
-      }
+      },
+      limit: 3
     })
   ],
   providers: [],

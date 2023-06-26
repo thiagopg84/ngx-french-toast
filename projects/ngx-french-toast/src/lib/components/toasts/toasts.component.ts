@@ -54,7 +54,8 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(delay(0))
       .subscribe({
         next: () => {
-          if (this.toastsComponents.toArray().length > 3) {
+          const reachedLimit = this.toastsComponents.toArray().length > (this.config.limit || 3);
+          if (reachedLimit) {
             this.toastsComponents.toArray()[0].destroyToast();
           }
         },
