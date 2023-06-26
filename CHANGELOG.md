@@ -4,6 +4,27 @@ All notable changes to the `ngx-french-toast` library will be documented in this
 
 ---
 
+## **0.9.8** (2023-06-26)
+
+### Added
+
+- Implemented functionality to allow users to change the limit of toasts in the screen
+  - When importing `FrenchToastModule` you now can pass a value for the `ToastConfig.limit` property:
+  ```typescript
+  @NgModule({
+  ...
+  imports: [
+    FrenchToastModule.forRoot({
+      defaultDuration: 10000,
+      position: ToastPosition.BOTTOM_RIGHT,
+      colors: {},
+      limit: 3
+    })
+  ],
+  ...
+  })
+  ```
+
 ## **0.9.7** (2023-06-17)
 
 ### Added
