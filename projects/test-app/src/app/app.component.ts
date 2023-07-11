@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
       title: 'TESTING',
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu!!!',
       // duration: 100000,
-      // icon: '../assets/svg/sprite.svg#icon-reorder-cameras'
+      // icon: '../assets/svg/sprite.svg#icon-add-marker'
       // icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sign-check-icon.png/768px-Sign-check-icon.png'
     })
   }
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
       title: 'TESTING',
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu!!!',
       // duration: 200000,
-      icon: '../assets/svg/sprite.svg#icon-reorder-cameras',
+      icon: '../assets/svg/sprite.svg#icon-add-marker',
       component: DynamicComponentComponent
       // icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sign-check-icon.png/768px-Sign-check-icon.png'
     })
