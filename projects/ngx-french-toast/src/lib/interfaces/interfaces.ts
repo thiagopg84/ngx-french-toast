@@ -33,8 +33,8 @@ export interface ToastConfig {
 
 export interface ToastInputModel {
   title: string;
-  content?: string;
-  duration?: number;
+  content?: string | null;
+  duration?: number | null;
   _id?: string;
   icon?: string | null;
   component?: any;

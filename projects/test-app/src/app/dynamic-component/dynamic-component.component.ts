@@ -14,9 +14,7 @@ export class DynamicComponentComponent implements OnInit {
   rate(rate: number, event: Event): void {
     console.log(rate);
     event.stopPropagation();
-    setTimeout(() => {
-      this.destroyToast.emit(true);
-    }, 1000);
+    this.destroyToast.emit(true);
   }
 
   ngOnInit(): void {

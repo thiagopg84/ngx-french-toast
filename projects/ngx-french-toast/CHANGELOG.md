@@ -3,6 +3,19 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
+## **0.9.91** (2023-07-18)
+
+### Updated
+
+- Updated Angular version to 15.2.9.
+
+### Fixed
+
+- Fixed `peerDependencies` to allow users to use the library in Angular 16 applications as well.
+
+### Enhanced
+- Implemented a playground in `test-app` so that users can take a better look at how easy it is to implement the library :)
+---
 ## **0.9.9** (2023-07-01)
 
 ### Fixed
