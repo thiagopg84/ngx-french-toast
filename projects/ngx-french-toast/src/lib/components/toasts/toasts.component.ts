@@ -8,7 +8,7 @@ import {
   QueryList,
   ViewChildren
 } from '@angular/core';
-import { delay, filter, startWith, Subscription } from 'rxjs';
+import { delay, filter, startWith, Subject, Subscription, takeUntil } from 'rxjs';
 import { ToastModel } from '../../interfaces/interfaces';
 import { ToastComponent } from './toast/toast.component';
 import { ToastService } from '../../french-toast.service';
@@ -30,6 +30,7 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
   bottomLeft: ToastPosition = ToastPosition.BOTTOM_LEFT;
   topRight: ToastPosition = ToastPosition.TOP_RIGHT;
   topLeft: ToastPosition = ToastPosition.TOP_LEFT;
+  private destroy$ = new Subject<boolean>();
 
   constructor(
     private toastService: ToastService,
@@ -46,12 +47,17 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+    this.destroy$.next(false);
+    this.destroy$.complete();
   }
 
   ngAfterViewInit(): void {
     this.subs = this.toastsComponents.changes
-      .pipe(startWith(''))
-      .pipe(delay(0))
+      .pipe(
+        takeUntil(this.destroy$),
+        startWith(''),
+        delay(0)
+      )
       .subscribe({
         next: () => {
           const reachedLimit = this.toastsComponents.toArray().length > (this.config.limit || 3);
@@ -64,7 +70,10 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getToasts(): void {
     this.subs = this.toastService.toast
-      .pipe(filter((toast) => !!toast))
+      .pipe(
+        takeUntil(this.destroy$),
+        filter((toast) => !!toast)
+      )
       .subscribe({
         next: (toast) => {
           const toastElement: ToastModel = toast as ToastModel;
@@ -79,15 +88,17 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       });
 
-    this.subs = this.toastService.clearAll.subscribe({
-      next: (res) => {
-        if (res) {
-          this.toastsComponents.toArray().forEach((e) => {
-            e.destroyToast();
-          });
-        }
-      },
-    });
+    this.subs = this.toastService.clearAll
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          if (res) {
+            this.toastsComponents.toArray().forEach((e) => {
+              e.destroyToast();
+            });
+          }
+        },
+      });
   }
 
   control(toast: ToastModel): void {

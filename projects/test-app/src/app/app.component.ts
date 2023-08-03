@@ -15,8 +15,9 @@ export class AppComponent {
   icon!: boolean;
   dynamicComponent!: boolean;
   toastType: 'success' | 'warning' | 'danger' | 'info' = 'success';
-  duration: number = 10000
-  content: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+  duration: number = 10000;
+  content: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+  infinite: boolean = false;
 
   constructor(private toastService: ToastService) {}
 
@@ -27,6 +28,7 @@ export class AppComponent {
       duration: this.duration,
       component: this.dynamicComponent ? DynamicComponentComponent : null,
       icon: this.icon ? '../assets/svg/sprite.svg#icon-add-marker' : null,
+      infinite: this.infinite
       // icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sign-check-icon.png/768px-Sign-check-icon.png'
     })
   }

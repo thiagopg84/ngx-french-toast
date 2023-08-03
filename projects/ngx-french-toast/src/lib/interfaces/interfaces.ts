@@ -32,12 +32,42 @@ export interface ToastConfig {
 }
 
 export interface ToastInputModel {
+  /**
+   * The title of the Toast.
+   * @type string
+   */
   title: string;
+  /**
+   * The content of the Toast.
+   * @type string
+   */
   content?: string | null;
+  /**
+   * The duration of the Toast.
+   * @type number
+   */
   duration?: number | null;
+  /**
+   * The id of the Toast. If blank, will be automatically generated.
+   * @type string
+   */
   _id?: string;
+  /**
+   * The icon of the Toast.
+   * @type string
+   */
   icon?: string | null;
+  /**
+   * A dynamically imported component within the Toast.
+   * @type any
+   */
   component?: any;
+  /**
+   * Whether or not the Toast should expire.
+   * @type boolean
+   * @default false
+   */
+  infinite?: boolean;
 };
 
 export interface ToastModel extends ToastInputModel {

@@ -2,7 +2,7 @@
   'right': position === bottomRight || position === topRight,
   'left': position === bottomLeft || position === topLeft
 }" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [id]="toast._id" [style.background]="linearGradient">
-  <div class="toast-timer" [style]="'--animation-speed: ' + duration/1000 + 's;'" [ngStyle]="timebarColor"></div>
+  <div class="toast-timer" [style]="'--animation-speed: ' + duration/1000 + 's;'" [ngStyle]="timebarColor" *ngIf="!toast?.infinite"></div>
   <div class="toast-group">
     <div class="toast-group__top" [ngClass]="toast.icon ? 'has-icon' : ''">
       <div class="toast-group__icon" *ngIf="toast.icon">

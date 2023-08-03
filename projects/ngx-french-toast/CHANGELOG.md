@@ -3,6 +3,24 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
+## **1.0** (2023-08-02)
+
+### Added
+
+- Added the property `infinite` to `ToastInputModel` to control whether or not the Toast expires.
+
+  ```typescript
+  this.toastService.success({
+    title: 'I will not go away!',
+    content: 'I will not expire and won\'t have a countdown :)',
+    infinite: true
+  })
+  ```
+
+### Enhanced
+
+- Improved the unsubscribe strategy across the project using `takeUntil` operator.
+---
 ## **0.9.91** (2023-07-18)
 
 ### Updated

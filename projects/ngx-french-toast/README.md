@@ -119,7 +119,8 @@ Each toast has the following customizable properties:
       _id: `success-toast--${this.id}`, // if you leave it blank, the ID will be automatically generated
       component: SomeComponent,
       duration: 10000,
-      icon: '../assets/svg/sprite.svg#icon-success' // or a URL of a .png, for example
+      icon: '../assets/svg/sprite.svg#icon-success', // or a URL of a .png, for example
+      infinite: true // if infinite is true, the duration will be ignored
     });
 ```
 <br>

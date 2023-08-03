@@ -1,5 +1,5 @@
 import { AfterContentInit, AfterViewInit, Component, ComponentRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { ToastModel } from '../../../interfaces/interfaces';
 import { ToastConfig } from '../../../interfaces/interfaces';
 import { TOAST_CONFIG } from '../../../toast.tokens';
@@ -20,6 +20,7 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   @Input() toast!: ToastModel;
   @Input() currentTheme!: string;
   @Output() control: EventEmitter<ToastModel> = new EventEmitter<ToastModel>();
+  private destroy$ = new Subject<boolean>();
   isVisible: boolean = false;
   duration!: number;
   remainingTime!: number;
@@ -54,10 +55,11 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
     if (this.toastConfig?.colors) {
       this.getColors();
     }
+    this.svgUrlIsFromSprite = this.toast.icon?.includes('.svg#') as boolean;
+    if (this.toast?.infinite) return;
     this.duration = Number(this.toast.duration);
     this.remainingTime = Number(this.toast.duration);
     this.resumeTime = new Date();
-    this.svgUrlIsFromSprite = this.toast.icon?.includes('.svg#') as boolean;
     this.timeout = window.setTimeout(() => {
       this.destroyToast();
     }, this.duration);
@@ -71,6 +73,8 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
 
   ngOnDestroy(): void {
     if (this.subs) this.subs.unsubscribe();
+    this.destroy$.next(false);
+    this.destroy$.complete();
   }
 
   createDynamicToast(): void {
@@ -78,7 +82,7 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
     setTimeout(() => {
       this.component = this.container.createComponent(this.toast.component);
       this.component.instance.content = this.toast.content;
-      this.subs = this.component.instance?.destroyToast?.subscribe({
+      this.subs = this.component.instance?.destroyToast?.pipe(takeUntil(this.destroy$)).subscribe({
         next: (res: boolean) => {
           if (res) {
             this.destroyToast();
@@ -98,12 +102,14 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   }
 
   onMouseEnter() {
+    if (this.toast?.infinite) return;
     clearTimeout(this.timeout);
     const diff = new Date().getTime() - this.resumeTime.getTime();
     this.remainingTime -= diff;
   }
 
   onMouseLeave() {
+    if (this.toast?.infinite) return;
     this.resumeTime = new Date();
     this.timeout = window.setTimeout(() => {
       this.destroyToast();
