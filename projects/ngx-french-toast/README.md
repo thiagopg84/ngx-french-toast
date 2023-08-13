@@ -10,6 +10,7 @@
 - Fully built in Angular 14, without any external dependencies. Oui, très indépendant!
 - Customizable toast appearance, including duration, colors, and positioning. Like a beret, you can style it to perfection!
 - Unique feature: Dynamically embed components within the toast for maximum flexibility and créativité. C'est magnifique!
+- Total control over toast visibility: `infinite` and `pinned` properties allow users to arrange toasts based on their importance and ensure critical messages stay in focus.
 
 <br>
 
@@ -120,7 +121,8 @@ Each toast has the following customizable properties:
       component: SomeComponent,
       duration: 10000,
       icon: '../assets/svg/sprite.svg#icon-success', // or a URL of a .png, for example
-      infinite: true // if infinite is true, the duration will be ignored
+      infinite: true, // if infinite is true, the duration will be ignored
+      pinned: true // when set to true, this toast will remain fixed in its position even if new toasts are added, unless the next toast is also pinned
     });
 ```
 <br>
@@ -138,7 +140,7 @@ this.toastService.success({
 
 <br>
 
-## Programatically closing the parent toast from the embedded component
+## Programmatically closing the parent toast from the embedded component
 To close the parent toast from the embedded component, users should follow these steps:
 
 1. In the embedded component (e.g., `ExampleComponent`), define an `EventEmitter` named `destroyToast` as an `@Output()` property:
@@ -204,6 +206,18 @@ this.toastService.success({ title: 'Success', icon: '../assets/imgs/success.png'
 ```
 
 Note: Make sure to provide the correct path to the image or SVG file. Parfait!
+
+<br>
+
+# Clearing Toasts Programmatically
+
+Sometimes, you might need to remove all toasts from the screen at once. To do this programmatically, simply call the `clearAllToasts()` method from your `ToastService` instance:
+
+```typescript
+this.toastService.clearAllToasts();
+```
+
+This can be particularly useful when, for instance, you want to reset the toast notifications or clear the screen after a certain action has been taken.
 
 <br>
 

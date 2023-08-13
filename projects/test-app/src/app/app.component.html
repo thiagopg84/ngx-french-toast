@@ -24,6 +24,11 @@
     <label for="infinite">Infinite</label>
   </div>
 
+  <div class="selector">
+    <input type="checkbox" name="pinned" id="pinned" [(ngModel)]="pinned">
+    <label for="pinned">Pinned</label>
+  </div>
+
   <div class="fd-column">
     <label for="title">Title</label>
     <input type="text" name="title" id="title" cols="10" rows="10" [(ngModel)]="title">
@@ -40,5 +45,10 @@
     {{ duration/1000 }} seconds
   </div>
 </div>
-<button (click)="addToast()" [style]="linearGradient">Add Toast</button>
+<div class="btns">
+  <button (click)="addToast()">Add Toast</button>
+  <button (click)="clearAllToasts()">Clear All Toasts</button>
+</div>
 <french-toast></french-toast>
+
+<p>Powered by <a href="https://www.npmjs.com/package/ngx-french-toast" target="_blank">ngx-french-toast</a>.</p>

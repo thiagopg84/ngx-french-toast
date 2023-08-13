@@ -77,11 +77,12 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe({
         next: (toast) => {
           const toastElement: ToastModel = toast as ToastModel;
-          if (this.toasts.some((tst) => tst?.component) && !toast?.component) {
-            const index = this.toasts.indexOf(
-              this.toasts.find((e) => e.component) as ToastModel
+          const pinnedToastOnScreen = this.toasts.some((tst) => tst?.pinned);
+          if (pinnedToastOnScreen && !toast?.pinned) {
+            const firstPinnedToastIndex = this.toasts.indexOf(
+              this.toasts.find((e) => e.pinned) as ToastModel
             );
-            this.toasts.splice(index, 0, toastElement);
+            this.toasts.splice(firstPinnedToastIndex, 0, toastElement);
             return;
           }
           this.toasts.push(toast as ToastModel);

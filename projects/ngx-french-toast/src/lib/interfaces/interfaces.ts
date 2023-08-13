@@ -68,6 +68,12 @@ export interface ToastInputModel {
    * @default false
    */
   infinite?: boolean;
+    /**
+   * When set to true, this toast will remain fixed in its position even if new toasts are added, unless the next toast is also pinned.
+   * @type boolean
+   * @default false
+   */
+  pinned?: boolean;
 };
 
 export interface ToastModel extends ToastInputModel {

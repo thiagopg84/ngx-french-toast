@@ -3,7 +3,22 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
-## **1.0** (2023-08-02)
+## **1.1.0** (2023-08-12)
+
+### Added
+
+- Introduced the pinned property to ToastInputModel, enabling users to control whether a Toast should remain fixed on the screen. This feature offers complete autonomy over toast behavior. Combining pinned with fixed ensures the toast remains perpetually visible, unaffected by other toasts (unless other pinned toasts are subsequently added).
+
+  ```typescript
+  this.toastService.success({
+    title: 'I shall remain!',
+    content: 'Other toasts shall flock around me :P',
+    pinned: true
+  });
+  ```
+
+---
+## **1.0.0** (2023-08-02)
 
 ### Added
 
