@@ -3,8 +3,10 @@
   <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/master/projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="134px" height="200px" />
 </p>
 
-<a href="CHANGELOG.md"><b>Check the Changelog for updates! 📌 </b></a>
+### <a href="CHANGELOG.md"><b>Check the Changelog for updates! 📌 </b></a>
 
+### You can test all features in <a href="https://ngx-french-toast.netlify.app/"> ngx-french-toast playground app</a>.
+---
 # Features
 
 - Fully built in Angular 14, without any external dependencies. Oui, très indépendant!
