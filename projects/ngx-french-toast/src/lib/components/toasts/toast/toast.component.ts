@@ -82,6 +82,9 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
     setTimeout(() => {
       this.component = this.container.createComponent(this.toast.component);
       this.component.instance.content = this.toast.content;
+      if (this.toast?.context) {
+        this.component.instance.context = this.toast.context;
+      }
       this.subs = this.component.instance?.destroyToast?.pipe(takeUntil(this.destroy$)).subscribe({
         next: (res: boolean) => {
           if (res) {

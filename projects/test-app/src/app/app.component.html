@@ -14,9 +14,12 @@
     <label for="icon">Icon</label>
   </div>
 
-  <div class="selector">
-    <input type="checkbox" name="dynamic-component" id="dynamic-component" [(ngModel)]="dynamicComponent">
-    <label for="dynamic-component">Dynamic Component</label>
+  <div class="fd-column">
+    <div class="selector">
+      <input type="checkbox" name="dynamic-component" id="dynamic-component" [(ngModel)]="dynamicComponent">
+      <label for="dynamic-component">Dynamic Component</label>
+    </div>
+    <textarea name="content" id="content" cols="10" rows="3" [(ngModel)]="dynamicContent" *ngIf="dynamicComponent" placeholder="Dynamic Content"></textarea>
   </div>
 
   <div class="selector">

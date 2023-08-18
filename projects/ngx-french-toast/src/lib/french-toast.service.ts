@@ -32,7 +32,8 @@ export class ToastService {
       type,
       component: toastInput.component,
       infinite: toastInput.infinite,
-      pinned: toastInput.pinned
+      pinned: toastInput.pinned,
+      context: toastInput.context
     };
     this.toast.next(newToast);
   }

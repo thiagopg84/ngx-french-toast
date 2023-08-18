@@ -136,10 +136,21 @@ To embed components dynamically just call any method from your instance of `Toas
 ```typescript
 this.toastService.success({
   component: ExampleComponent,
-  title: 'Oui, mon ami!'
+  title: 'Oui, mon ami!',
+  context: {
+    name: 'Jean Pierre',
+    email: 'jetaime@lesbleus.fr'
+  } // the content and type of context is up to you!
 });
 ```
 
+<br>
+
+## Grabbing the `context` object from the embedded component
+To have access to the `context` object from your dynamically embedded component, you just have to create an `@Input() context` property in your embedded component:
+```typescript
+@Input() context: { name: string, email: string };
+```
 <br>
 
 ## Programmatically closing the parent toast from the embedded component
@@ -170,10 +181,12 @@ import { Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-example',
   template: `
+    <p>My email: {{ context.email }}</p>
     <button (click)="rate(5, $event)">Five stars!</button>;
   `
 })
 export class ExampleComponent {
+  @Input() context: { name: string, email: string };
   @Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
   rate(rate: number, event: Event): void {

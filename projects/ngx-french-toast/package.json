@@ -1,6 +1,6 @@
 {
   "name": "ngx-french-toast",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "Apache-2.0",
   "peerDependencies": {
     "@angular/common": "14 || 15 || 16",
@@ -9,6 +9,7 @@
   "repository": {
     "url": "https://github.com/thiagopg84/ngx-french-toast/tree/master/projects/ngx-french-toast"
   },
+  "homepage": "https://ngx-french-toast.netlify.app",
   "dependencies": {
     "tslib": "^2.3.0"
   },

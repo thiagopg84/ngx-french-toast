@@ -68,12 +68,17 @@ export interface ToastInputModel {
    * @default false
    */
   infinite?: boolean;
-    /**
+  /**
    * When set to true, this toast will remain fixed in its position even if new toasts are added, unless the next toast is also pinned.
    * @type boolean
    * @default false
    */
   pinned?: boolean;
+  /**
+   * This is used to pass data into the dynamically imported component
+   * @type any
+   */
+  context?: any;
 };
 
 export interface ToastModel extends ToastInputModel {

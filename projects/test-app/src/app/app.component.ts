@@ -19,6 +19,7 @@ export class AppComponent {
   content: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
   infinite: boolean = false;
   pinned: boolean = false;
+  dynamicContent: string = '';
 
   constructor(private toastService: ToastService) {}
 
@@ -30,7 +31,8 @@ export class AppComponent {
       component: this.dynamicComponent ? DynamicComponentComponent : null,
       icon: this.icon ? '../assets/svg/sprite.svg#icon-add-marker' : null,
       infinite: this.infinite,
-      pinned: this.pinned
+      pinned: this.pinned,
+      context: this.dynamicComponent ? { content: this.dynamicContent } : null
       // icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Sign-check-icon.png/768px-Sign-check-icon.png'
     })
   }

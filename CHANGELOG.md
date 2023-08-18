@@ -3,6 +3,32 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
+## **1.2.0** (2023-08-18)
+
+### Added
+
+- Introduced enhanced component embedding. You can now seamlessly pass context data to dynamically embedded components within toasts:
+
+  ```typescript
+  this.toastService.success({
+    title: 'Dynamic Components!',
+    component: MyLovelyComponent
+    context: {
+      name: 'Jean Pierre',
+      email: 'jetaime@lesbleus.fr'
+    }
+  });
+
+  @Component(...)
+  export class MyLovelyComponent {
+    @Input() context!: {
+      name: string,
+      email: string
+    };
+  }
+  ```
+
+---
 ## **1.1.0** (2023-08-12)
 
 ### Added
