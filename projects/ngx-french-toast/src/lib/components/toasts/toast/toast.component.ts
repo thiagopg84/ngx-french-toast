@@ -1,5 +1,5 @@
 import { AfterContentInit, AfterViewInit, Component, ComponentRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { ToastModel } from '../../../interfaces/interfaces';
 import { ToastConfig } from '../../../interfaces/interfaces';
 import { TOAST_CONFIG } from '../../../toast.tokens';
@@ -20,14 +20,13 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   @Input() toast!: ToastModel;
   @Input() currentTheme!: string;
   @Output() control: EventEmitter<ToastModel> = new EventEmitter<ToastModel>();
-  private destroy$ = new Subject<boolean>();
+  private destroy$ = new Subject<void>();
   isVisible: boolean = false;
   duration!: number;
   remainingTime!: number;
   timeout!: number;
   resumeTime!: Date;
   component!: ComponentRef<any>;
-  subs!: Subscription;
   svgUrlIsFromSprite: boolean = false;
   position: ToastPosition = ToastPosition.BOTTOM_RIGHT;
   bottomRight: ToastPosition = ToastPosition.BOTTOM_RIGHT;
@@ -72,8 +71,7 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   }
 
   ngOnDestroy(): void {
-    if (this.subs) this.subs.unsubscribe();
-    this.destroy$.next(false);
+    this.destroy$.next();
     this.destroy$.complete();
   }
 
@@ -85,7 +83,7 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
       if (this.toast?.context) {
         this.component.instance.context = this.toast.context;
       }
-      this.subs = this.component.instance?.destroyToast?.pipe(takeUntil(this.destroy$)).subscribe({
+      this.component.instance?.destroyToast?.pipe(takeUntil(this.destroy$)).subscribe({
         next: (res: boolean) => {
           if (res) {
             this.destroyToast();
@@ -98,7 +96,6 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   destroyToast() {
     this.isVisible = false;
     setTimeout(() => {
-      if (this.subs) this.subs.unsubscribe();
       this.toast.isVisible = false;
       this.control.emit(this.toast);
     }, 100);

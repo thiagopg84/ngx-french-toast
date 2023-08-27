@@ -124,7 +124,11 @@ Each toast has the following customizable properties:
       duration: 10000,
       icon: '../assets/svg/sprite.svg#icon-success', // or a URL of a .png, for example
       infinite: true, // if infinite is true, the duration will be ignored
-      pinned: true // when set to true, this toast will remain fixed in its position even if new toasts are added, unless the next toast is also pinned
+      pinned: true, // when set to true, this toast will remain fixed in its position even if new toasts are added, unless the next toast is also pinned
+      context: { // this will be available within SomeComponent!
+        name: 'Jean Pierre',
+        email: 'jetaime@lesbleus.fr'
+      }
     });
 ```
 <br>
@@ -147,9 +151,9 @@ this.toastService.success({
 <br>
 
 ## Grabbing the `context` object from the embedded component
-To have access to the `context` object from your dynamically embedded component, you just have to create an `@Input() context` property in your embedded component:
+To have access to the `context` object from within your dynamically embedded component, you just have to create a `context` variable in your embedded component to receive the content you declared when calling the `ToastService`:
 ```typescript
-@Input() context: { name: string, email: string };
+context: { name: string, email: string }; // the type is up to you :)
 ```
 <br>
 
@@ -166,14 +170,7 @@ To close the parent toast from the embedded component, users should follow these
 
 <br>
 
-
-## Preventing the toast from closing when your embedded component needs a button
-To prevent the toast from closing when users click on a button in your embedded component, you should grab the click event like this (I know it's not parfait, I'll try to find a better solution for this in the near future 😬):
-```html
-<button (click)="rate(5, $event)">Five stars!</button>;
-```
-
-And on your TS file, you should use `event.stopPropagation()`. To summarize, here's an example for the whole section:
+To summarize, here's an example for the whole section:
 
 ```typescript
 import { Output, EventEmitter } from '@angular/core';
@@ -182,15 +179,14 @@ import { Output, EventEmitter } from '@angular/core';
   selector: 'app-example',
   template: `
     <p>My email: {{ context.email }}</p>
-    <button (click)="rate(5, $event)">Five stars!</button>;
+    <button (click)="rate(5)">Five stars!</button>;
   `
 })
 export class ExampleComponent {
-  @Input() context: { name: string, email: string };
+  context: { name: string, email: string };
   @Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
-  rate(rate: number, event: Event): void {
-    event.stopPropagation();
+  rate(rate: number): void {
     this.someApi.rate(rate).subscribe({
       next: () => {
         this.destroyToast.emit(true);

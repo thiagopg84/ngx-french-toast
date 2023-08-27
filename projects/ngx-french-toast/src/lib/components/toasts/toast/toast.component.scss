@@ -1,5 +1,4 @@
 .toast-container {
-  cursor: pointer;
   opacity: 0;
   width: 22.5rem;
   transition: all 0.3s;
@@ -10,6 +9,50 @@
 
   @media screen and (max-width: 768px) {
     width: 100%;
+  }
+
+  .close {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+      width: 25px;
+      height: 25px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      transition: all .3s;
+      cursor: pointer;
+    }
+
+    .icon:hover {
+      opacity: .5;
+    }
+
+    .icon::before, .icon::after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 2px;
+      background-color: #fff;
+      transform-origin: center;
+    }
+
+    .icon::before {
+      transform: rotate(45deg);
+    }
+
+    .icon::after {
+      transform: rotate(-45deg);
+    }
   }
 
   .toast-group {
@@ -60,6 +103,10 @@
   }
 }
 
+.toast-container:not(.dynamic) {
+  cursor: pointer;
+}
+
 .toast-container.right {
   transform: translateX(120%);
 }
@@ -74,7 +121,7 @@
 }
 
 .toast-container.visible:hover {
-  opacity: .80;
+  opacity: .90;
   .toast-timer {
     animation-play-state: paused;
   }

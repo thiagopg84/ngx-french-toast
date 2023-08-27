@@ -1,7 +1,10 @@
-<div (click)="destroyToast()" [class.visible]="isVisible" class="toast-container" [class]="toast.type" [ngClass]="{
+<div (click)="toast.component ? null : destroyToast()" [class.visible]="isVisible" class="toast-container" [class]="toast.type" [class.dynamic]="toast.component ? true : false" [ngClass]="{
   'right': position === bottomRight || position === topRight,
   'left': position === bottomLeft || position === topLeft
 }" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [id]="toast._id" [style.background]="linearGradient">
+  <div class="close" *ngIf="toast.component">
+    <button class="icon" (click)="destroyToast()"></button>
+  </div>
   <div class="toast-timer" [style]="'--animation-speed: ' + duration/1000 + 's;'" [ngStyle]="timebarColor" *ngIf="!toast?.infinite"></div>
   <div class="toast-group">
     <div class="toast-group__top" [ngClass]="toast.icon ? 'has-icon' : ''">

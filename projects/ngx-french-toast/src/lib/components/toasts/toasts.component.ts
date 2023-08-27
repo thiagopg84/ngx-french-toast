@@ -8,7 +8,7 @@ import {
   QueryList,
   ViewChildren
 } from '@angular/core';
-import { delay, filter, startWith, Subject, Subscription, takeUntil } from 'rxjs';
+import { delay, filter, startWith, Subject, takeUntil } from 'rxjs';
 import { ToastModel } from '../../interfaces/interfaces';
 import { ToastComponent } from './toast/toast.component';
 import { ToastService } from '../../french-toast.service';
@@ -24,13 +24,12 @@ import { ToastPosition } from '../../enums/enums';
 export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
   toasts: ToastModel[] = [];
   @ViewChildren(ToastComponent) toastsComponents!: QueryList<ToastComponent>;
-  subs!: Subscription;
   position: ToastPosition = ToastPosition.BOTTOM_RIGHT;
   bottomRight: ToastPosition = ToastPosition.BOTTOM_RIGHT;
   bottomLeft: ToastPosition = ToastPosition.BOTTOM_LEFT;
   topRight: ToastPosition = ToastPosition.TOP_RIGHT;
   topLeft: ToastPosition = ToastPosition.TOP_LEFT;
-  private destroy$ = new Subject<boolean>();
+  private destroy$ = new Subject<void>();
 
   constructor(
     private toastService: ToastService,
@@ -46,13 +45,12 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
-    this.destroy$.next(false);
+    this.destroy$.next();
     this.destroy$.complete();
   }
 
   ngAfterViewInit(): void {
-    this.subs = this.toastsComponents.changes
+    this.toastsComponents.changes
       .pipe(
         takeUntil(this.destroy$),
         startWith(''),
@@ -69,7 +67,7 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getToasts(): void {
-    this.subs = this.toastService.toast
+    this.toastService.toast
       .pipe(
         takeUntil(this.destroy$),
         filter((toast) => !!toast)
@@ -89,7 +87,7 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       });
 
-    this.subs = this.toastService.clearAll
+    this.toastService.clearAll
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {

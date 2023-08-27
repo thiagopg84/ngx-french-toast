@@ -3,6 +3,24 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
+## **1.2.1** (2023-08-27)
+
+### Improved
+
+- Revised the `OnDestroy` approach: `destroy$` is now a `Subject` of type `void` instead of `boolean`;
+- Revised the approach for handling clicks on dynamically embedded components. To enhance user experience (and to make things easier for developers), Toasts containing embedded components will now feature a dedicated `✕` button for convenient closure. This change ensures that clicking on the Toast body will no longer trigger its automatic dismissal. Therefore, manually preventing the click event from propagating in your embedded component is no longer necessary:
+```typescript
+  rate(
+    rate: number,
+    // event: Event (no longer necessary!)
+  ): void {
+    // event.stopPropagation(); (no longer necessary!)
+    this.someApi.rate(rate)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => { this.destroyToast.emit(true); })
+  }
+```
+---
 ## **1.2.0** (2023-08-18)
 
 ### Added

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dynamic-component',
@@ -8,15 +8,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class DynamicComponentComponent implements OnInit {
 
   @Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false);
-  @Input() context!: {
+  context!: {
     content: string
   };
 
   constructor() { }
 
-  rate(rate: number, event: Event): void {
+  rate(rate: number): void {
     console.log(rate);
-    event.stopPropagation();
     this.destroyToast.emit(true);
   }
 
