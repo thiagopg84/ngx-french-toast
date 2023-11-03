@@ -16,6 +16,10 @@
   }
 }
 
+.selectors *, .signature, .btns button {
+  font-family: 'Athiti';
+}
+
 .btns {
   display: flex;
   gap: 1rem;

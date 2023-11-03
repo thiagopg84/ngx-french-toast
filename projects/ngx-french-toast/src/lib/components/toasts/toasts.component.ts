@@ -29,19 +29,22 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
   bottomLeft: ToastPosition = ToastPosition.BOTTOM_LEFT;
   topRight: ToastPosition = ToastPosition.TOP_RIGHT;
   topLeft: ToastPosition = ToastPosition.TOP_LEFT;
+  fontFamily: string = '';
+  titleFontSize: string = '';
+  contentFontSize: string = '';
+  style: string = '';
   private destroy$ = new Subject<void>();
 
   constructor(
     private toastService: ToastService,
     @Inject(TOAST_CONFIG) private config: ToastConfig
   ) {
-    if (this.config.position) {
-      this.position = this.config.position;
-    }
+    if (this.config.position) this.position = this.config.position;
   }
 
   ngOnInit(): void {
     this.getToasts();
+    this.style = this.getStyles();
   }
 
   ngOnDestroy(): void {
@@ -64,6 +67,13 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         },
       });
+  }
+
+  getStyles(): string {
+    this.fontFamily = `--font-family: ${this.config.font || 'sans-serif'}`;
+    this.titleFontSize = `--title-font-size: ${this.config.titleFontSize || '1.2rem'}`;
+    this.contentFontSize = `--content-font-size: ${this.config.contentFontSize || '1rem'}`;
+    return `${this.fontFamily}; ${this.titleFontSize}; ${this.contentFontSize}`;
   }
 
   getToasts(): void {

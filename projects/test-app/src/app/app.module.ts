@@ -21,7 +21,10 @@ import { FormsModule } from '@angular/forms';
         // success: '#58D77C',
         // danger: '#f77676',
       },
-      limit: 3
+      limit: 3,
+      contentFontSize: '13px',
+      titleFontSize: '15px',
+      font: 'Athiti'
     }),
     FormsModule
   ],

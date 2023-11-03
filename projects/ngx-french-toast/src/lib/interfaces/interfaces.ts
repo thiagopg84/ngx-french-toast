@@ -29,6 +29,24 @@ export interface ToastConfig {
    * @default 3
    */
   limit?: number | undefined;
+  /**
+   * The font-family that will be used on toasts.
+   * @type string
+   * @default 'sans-serif'
+   */
+  font?: string | undefined;
+  /**
+   * The title font-size.
+   * @type string
+   * @default '1.2rem'
+   */
+  titleFontSize?: string | undefined;
+  /**
+   * The content font-size.
+   * @type string
+   * @default '1rem'
+   */
+  contentFontSize?: string | undefined;
 }
 
 export interface ToastInputModel {

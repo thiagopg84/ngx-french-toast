@@ -1,8 +1,4 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Athiti:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-
-<div class="toasts-container" *ngIf="toasts.length" [ngClass]="{
+<div class="toasts-container" *ngIf="toasts.length" [style]="style" [ngClass]="{
   'bottom-right': position === bottomRight,
   'bottom-left': position === bottomLeft,
   'top-left': position === topLeft,
