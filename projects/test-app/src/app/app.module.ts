@@ -22,9 +22,11 @@ import { FormsModule } from '@angular/forms';
         // danger: '#f77676',
       },
       limit: 3,
-      contentFontSize: '13px',
-      titleFontSize: '15px',
-      font: 'Athiti'
+      font: {
+        contentFontSize: '13px',
+        titleFontSize: '15px',
+        family: 'Athiti'
+      }
     }),
     FormsModule
   ],

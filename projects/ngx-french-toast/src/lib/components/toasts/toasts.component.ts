@@ -70,9 +70,9 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getStyles(): string {
-    this.fontFamily = `--font-family: ${this.config.font || 'sans-serif'}`;
-    this.titleFontSize = `--title-font-size: ${this.config.titleFontSize || '1.2rem'}`;
-    this.contentFontSize = `--content-font-size: ${this.config.contentFontSize || '1rem'}`;
+    this.fontFamily = `--font-family: ${this.config.font?.family || 'sans-serif'}`;
+    this.titleFontSize = `--title-font-size: ${this.config.font?.titleFontSize || '1.2rem'}`;
+    this.contentFontSize = `--content-font-size: ${this.config.font?.contentFontSize || '1rem'}`;
     return `${this.fontFamily}; ${this.titleFontSize}; ${this.contentFontSize}`;
   }
 

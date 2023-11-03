@@ -29,24 +29,29 @@ export interface ToastConfig {
    * @default 3
    */
   limit?: number | undefined;
-  /**
-   * The font-family that will be used on toasts.
-   * @type string
-   * @default 'sans-serif'
-   */
-  font?: string | undefined;
-  /**
-   * The title font-size.
-   * @type string
-   * @default '1.2rem'
-   */
-  titleFontSize?: string | undefined;
-  /**
-   * The content font-size.
-   * @type string
-   * @default '1rem'
-   */
-  contentFontSize?: string | undefined;
+    /**
+     * You can use this to change the font styling.
+     */
+  font?: {
+    /**
+     * Font family for both title and content.
+     * @type string
+     * @default 'sans-serif'
+     */
+    family?: string | undefined;
+    /**
+     * The title font-size.
+     * @type string
+     * @default '1.2rem'
+     */
+    titleFontSize?: string | undefined;
+    /**
+     * The content font-size.
+     * @type string
+     * @default '1rem'
+     */
+    contentFontSize?: string | undefined;
+  };
 }
 
 export interface ToastInputModel {

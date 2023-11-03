@@ -3,6 +3,27 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
+## **1.3** (2023-11-03)
+
+### Added
+
+- Introducing a font object in the ToastConfig interface, offering enhanced customization of font attributes for your toasts. Define custom font family, title font size, and content font size.
+```typescript
+@NgModule({
+  ...
+  imports: [
+    FrenchToastModule.forRoot({
+      font: {
+        contentFontSize: '13px',
+        titleFontSize: '15px',
+        family: 'Athiti'
+      }
+    })
+  ],
+  ...
+})
+```
+---
 ## **1.2.1** (2023-08-27)
 
 ### Improved

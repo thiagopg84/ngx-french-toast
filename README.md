@@ -42,7 +42,12 @@ const config: ToastConfig = {
   },
   defaultDuration: 100000,
   position: ToastPosition.TOP_RIGHT, // As elegant as the Eiffel Tower!
-  limit: 3
+  limit: 3,
+  font: {
+    contentFontSize: '13px', // This will accept any CSS unit (rem, em, px etc.)
+    titleFontSize: '15px', // Same here ;)
+    family: 'Athiti' // Très élégant!
+  }
 };
 
 @NgModule({
