@@ -2,6 +2,7 @@
 import {
   AfterViewInit,
   Component,
+  ComponentRef,
   Inject,
   OnDestroy,
   OnInit,
@@ -33,6 +34,7 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
   titleFontSize: string = '';
   contentFontSize: string = '';
   style: string = '';
+  componentRef!: ComponentRef<ToastsComponent>;
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -102,6 +104,7 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe({
         next: (res) => {
           if (res) {
+            if (!this.toastsComponents) return;
             this.toastsComponents.toArray().forEach((e) => {
               e.destroyToast();
             });
@@ -113,5 +116,8 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
   control(toast: ToastModel): void {
     const index = this.toasts.indexOf(toast);
     this.toasts.splice(index, 1);
+    if (this.toasts.length === 0) {
+      this.componentRef.destroy();
+    }
   }
 }

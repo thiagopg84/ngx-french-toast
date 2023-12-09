@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ToastService } from 'projects/ngx-french-toast/src/lib/french-toast.service';
 import { DynamicComponentComponent } from './dynamic-component/dynamic-component.component';
 
