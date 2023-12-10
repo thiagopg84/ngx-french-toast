@@ -16,11 +16,19 @@ import { ToastService } from '../../french-toast.service';
 import { TOAST_CONFIG } from '../../toast.tokens';
 import { ToastConfig } from '../../interfaces/interfaces';
 import { ToastPosition } from '../../enums/enums';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'french-toast',
   templateUrl: './toasts.component.html',
   styleUrls: ['./toasts.component.scss', '../../styles/common-styles.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgClass,
+    NgFor,
+    ToastComponent
+  ]
 })
 export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
   toasts: ToastModel[] = [];

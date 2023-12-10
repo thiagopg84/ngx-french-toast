@@ -3,6 +3,35 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
+## **1.4** (2023-12-10)
+
+### ⚠️ BREAKING CHANGES! ⚠️
+- **Angular/CDK Integration:** The toast rendering mechanism has been revamped using Angular Component Development Kit (CDK) Portals. Users no longer need to add the `<french-toast></french-toast>` selector to their templates. This change simplifies integration and provides a more streamlined user experience.
+- **Angular Update:** Migrated ngx-french-toast to Angular 16. Ensure that your Angular applications are also updated to the latest version for seamless integration.
+
+### Added
+- **Standalone Application Support:** ngx-french-toast now can be initialized without the need for a module:
+```typescript
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideFrenchToast({
+      defaultDuration: 10000,
+      position: ToastPosition.BOTTOM_RIGHT,
+      limit: 2,
+      font: {
+        contentFontSize: '13px',
+        titleFontSize: '15px',
+        family: 'Athiti'
+      }
+    })
+  ]
+})
+  .catch((err) => console.error(err));
+```
+
+### Improved
+- `ToastComponent` and `ToastsComponent` are now Standalone.
+---
 ## **1.3** (2023-11-03)
 
 ### Added

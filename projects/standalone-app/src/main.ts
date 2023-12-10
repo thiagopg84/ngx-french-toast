@@ -1,6 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { provideFrenchToast } from 'projects/ngx-french-toast/src/lib/french-toast.module';
+import { provideFrenchToast } from 'projects/ngx-french-toast/src/lib/providers/french-toast.provider';
 import { ToastPosition } from 'projects/ngx-french-toast/src/lib/enums/enums';
 
 bootstrapApplication(AppComponent, {
