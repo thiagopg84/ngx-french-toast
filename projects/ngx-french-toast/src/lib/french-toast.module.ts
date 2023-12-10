@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { EnvironmentProviders, ModuleWithProviders, NgModule, Provider, makeEnvironmentProviders } from '@angular/core';
 import { ToastsComponent } from './components/toasts/toasts.component';
 import { ToastComponent } from './components/toasts/toast/toast.component';
 import { CommonModule } from '@angular/common';
@@ -35,3 +35,14 @@ export class FrenchToastModule {
     };
   }
 }
+
+export const provideFrenchToast = (config: Partial<ToastConfig> = {}): EnvironmentProviders => {
+  const providers: Provider[] = [
+    {
+      provide: TOAST_CONFIG,
+      useValue: config
+    }
+  ];
+
+  return makeEnvironmentProviders(providers);
+};

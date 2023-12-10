@@ -1,0 +1,56 @@
+<div class="selectors">
+  <div class="fd-column">
+    <label for="toast-type">Toast Type</label>
+    <select [(ngModel)]="toastType" name="toast-type" id="toast-type">
+      <option value="success">Success</option>
+      <option value="info">Info</option>
+      <option value="warning">Warning</option>
+      <option value="danger">Danger</option>
+    </select>
+  </div>
+
+  <div class="selector">
+    <input type="checkbox" name="icon" id="icon" [(ngModel)]="icon">
+    <label for="icon">Icon</label>
+  </div>
+
+  <div class="fd-column">
+    <div class="selector">
+      <input type="checkbox" name="dynamic-component" id="dynamic-component" [(ngModel)]="dynamicComponent">
+      <label for="dynamic-component">Dynamic Component</label>
+    </div>
+    <textarea name="content" id="content" cols="10" rows="3" [(ngModel)]="dynamicContent" *ngIf="dynamicComponent" placeholder="Dynamic Content"></textarea>
+  </div>
+
+  <div class="selector">
+    <input type="checkbox" name="infinite" id="infinite" [(ngModel)]="infinite">
+    <label for="infinite">Infinite</label>
+  </div>
+
+  <div class="selector">
+    <input type="checkbox" name="pinned" id="pinned" [(ngModel)]="pinned">
+    <label for="pinned">Pinned</label>
+  </div>
+
+  <div class="fd-column">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" cols="10" rows="10" [(ngModel)]="title">
+  </div>
+
+  <div class="fd-column">
+    <label for="content">Content</label>
+    <textarea name="content" id="content" cols="10" rows="10" [(ngModel)]="content"></textarea>
+  </div>
+
+  <div class="fd-column">
+    <label for="duration">Duration</label>
+    <input type="range" name="duration" id="duration" [(ngModel)]="duration" max="20000" min="1000" step="500">
+    {{ duration/1000 }} seconds
+  </div>
+</div>
+<div class="btns">
+  <button (click)="addToast()">Add Toast</button>
+  <button (click)="clearAllToasts()">Clear All Toasts</button>
+</div>
+
+<p class="signature">Powered by <a href="https://www.npmjs.com/package/ngx-french-toast" target="_blank">ngx-french-toast</a>.</p>
