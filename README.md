@@ -1,6 +1,6 @@
 # ngx-french-toast
 <p align="center">
-  <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/master/projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="134px" height="200px" />
+  <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/master/projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="200px" />
 </p>
 
 ### <a href="CHANGELOG.md"><b>Check the Changelog for updates! 📌 </b></a>
