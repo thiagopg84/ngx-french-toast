@@ -8,7 +8,7 @@ bootstrapApplication(AppComponent, {
     provideFrenchToast({
       defaultDuration: 10000,
       position: ToastPosition.BOTTOM_RIGHT,
-      limit: 2,
+      limit: 3,
       font: {
         contentFontSize: '13px',
         titleFontSize: '15px',
