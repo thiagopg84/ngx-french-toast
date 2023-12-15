@@ -2,23 +2,35 @@
   'right': position === bottomRight || position === topRight,
   'left': position === bottomLeft || position === topLeft
 }" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [id]="toast._id" [style.background]="linearGradient">
-  <div class="close" *ngIf="toast.component">
-    <button class="icon" (click)="destroyToast()"></button>
-  </div>
-  <div class="toast-timer" [style]="'--animation-speed: ' + duration/1000 + 's;'" [ngStyle]="timebarColor" *ngIf="!toast?.infinite"></div>
+  @if (toast.component) {
+    <div class="close">
+      <button class="icon" (click)="destroyToast()"></button>
+    </div>
+  }
+  @if (!toast.infinite) {
+    <div class="toast-timer" [style]="'--animation-speed: ' + duration/1000 + 's;'" [ngStyle]="timebarColor"></div>
+  }
   <div class="toast-group">
     <div class="toast-group__top" [ngClass]="toast.icon ? 'has-icon' : ''">
-      <div class="toast-group__icon" *ngIf="toast.icon">
-        <svg *ngIf="svgUrlIsFromSprite">
-          <use [attr.xlink:href]="toast.icon"></use>
-        </svg>
-        <img [src]="toast.icon" *ngIf="!svgUrlIsFromSprite">
-      </div>
+      @if (toast.icon) {
+        <div class="toast-group__icon">
+          @if (svgUrlIsFromSprite) {
+            <svg>
+              <use [attr.xlink:href]="toast.icon"></use>
+            </svg>
+          } @else {
+            <img [src]="toast.icon">
+          }
+        </div>
+      }
       <p class="toast-title">{{ toast.title }}</p>
     </div>
     <div class="toast-group__bottom">
-      <p class="toast-content" *ngIf="!toast?.component">{{ toast.content }}</p>
-      <ng-template *ngIf="toast?.component" #container></ng-template>
+      @if (toast.component) {
+        <ng-template #container></ng-template>
+      } @else {
+        <p class="toast-content">{{ toast.content }}</p>
+      }
     </div>
   </div>
 </div>

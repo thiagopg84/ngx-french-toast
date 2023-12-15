@@ -1,10 +1,14 @@
-<div class="toasts-container" *ngIf="toasts.length" [style]="style" [ngClass]="{
-  'bottom-right': position === bottomRight,
-  'bottom-left': position === bottomLeft,
-  'top-left': position === topLeft,
-  'top-right': position === topRight
- }">
-  <ng-container *ngFor="let toast of toasts">
-    <toast *ngIf="toast?.isVisible" [toast]="toast" (control)="control($event)"/>
-  </ng-container>
+@if (toasts.length) {
+  <div class="toasts-container" [style]="style" [ngClass]="{
+    'bottom-right': position === bottomRight,
+    'bottom-left': position === bottomLeft,
+    'top-left': position === topLeft,
+    'top-right': position === topRight
+  }">
+    @for (toast of toasts; track toast._id) {
+      @if (toast?.isVisible) {
+        <toast [toast]="toast" (control)="control($event)"/>
+      }
+    }
 </div>
+}

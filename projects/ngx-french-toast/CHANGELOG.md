@@ -3,6 +3,15 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
+## **2.0** (2023-12-10)
+
+### ⚠️ BREAKING CHANGE! ⚠️
+- **Angular Update:** Implemented support for and migrated to the latest *Angular 17*. Consequently, this release is exclusively compatible with Angular 17 projects.
+
+<p>Ensure that your Angular applications are upgraded to version 17 to take advantage of its enhanced features and optimizations.</p>
+
+---
+
 ## **1.4** (2023-12-10)
 
 ### ⚠️ BREAKING CHANGES! ⚠️

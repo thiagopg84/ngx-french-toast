@@ -16,6 +16,32 @@
 
 <br>
 
+## Compatibility Matrix
+<table>
+  <thead>
+    <tr>
+      <th>Angular</th>
+      <th>ngx-french-toast</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>14.0.0 - 15.2.10</td>
+      <td>1.0.0 - 1.3.0</td>
+    </tr>
+    <tr>
+      <td>16.2.0</td>
+      <td>1.4.0</td>
+    </tr>
+    <tr>
+      <td>>= 17</td>
+      <td>2.0</td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+<br>
+
 # Installation
 
 To install ngx-french-toast, simply follow these étapes:
@@ -81,6 +107,13 @@ bootstrapApplication(AppComponent, {
 })
   .catch((err) => console.error(err));
 ```
+### ⚠️ Attention! This step is no longer required.
+
+~~3. Add the `FrenchToastComponent` selector in your `app.component.html` (or wherever you want to):~~
+```diff
+- <french-toast></french-toast>
+```
+
 ### 3. Et voilà! You're ready to start using ngx-french-toast in your Angular application.
 
 <br>
