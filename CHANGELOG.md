@@ -3,7 +3,33 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
-## **2.0** (2023-12-10)
+## **2.1.0** (2023-12-15)
+
+### Added
+- **Colors Configuration:** Introducing a new feature that allows users to customize toast colors. Now, you have full control over the background and text colors for different types of toasts. See the updated configuration options in the documentation to get started. Don't forget that these are optional and the library provides fallback for every configuration.
+
+```typescript
+import { FrenchToastModule, ToastPosition, ToastConfig } from 'ngx-french-toast';
+
+const config: ToastConfig = {
+  colors: {
+    danger: '#a20000', // Background color for the danger toast
+    dangerText: '#ffffff', // Text color for the danger toast
+    info: '#2d96f8', // Background color for the info toast
+    infoText: '#ffffff', // Text color for the info toast
+    success: '#2df877', // Background color for the success toast
+    successText: '#ffffff', // Text color for the success toast
+    warning: '#f8bb2d', // Background color for the warning toast
+    warningText: '#ffffff', // Text color for the warning toast
+    timebar: 'linear-gradient(45deg, #2b6bbf, #10425b)', // Background color for the time bar
+    autoGradient: false, // Controls whether the background will be an automatically generated gradient or not based on single input colors
+  },
+};
+```
+
+---
+
+## **2.0.0** (2023-12-15)
 
 ### ⚠️ BREAKING CHANGE! ⚠️
 - **Angular Update:** Implemented support for and migrated to the latest *Angular 17*. Consequently, this release is exclusively compatible with Angular 17 projects.
@@ -12,7 +38,7 @@ All notable changes to the `ngx-french-toast` library will be documented in this
 
 ---
 
-## **1.4** (2023-12-10)
+## **1.4.0** (2023-12-10)
 
 ### ⚠️ BREAKING CHANGES! ⚠️
 - **Angular/CDK Integration:** The toast rendering mechanism has been revamped using Angular Component Development Kit (CDK) Portals. Users no longer need to add the `<french-toast></french-toast>` selector to their templates. This change simplifies integration and provides a more streamlined user experience.
@@ -41,7 +67,7 @@ bootstrapApplication(AppComponent, {
 ### Improved
 - `ToastComponent` and `ToastsComponent` are now Standalone.
 ---
-## **1.3** (2023-11-03)
+## **1.3.0** (2023-11-03)
 
 ### Added
 

@@ -13,6 +13,11 @@ bootstrapApplication(AppComponent, {
         contentFontSize: '13px',
         titleFontSize: '15px',
         family: 'Athiti'
+      },
+      colors: {
+        // autoGradient: true,
+        // success: 'linear-gradient(45deg, rgb(0, 0, 0), rgb(58 58 58))',
+        timebar: '#ffff00'
       }
     })
   ]

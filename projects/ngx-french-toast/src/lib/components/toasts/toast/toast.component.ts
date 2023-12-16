@@ -43,6 +43,8 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   linearGradient: string = '';
   toastConfig!: ToastConfig;
   timebarColor!: { background: string };
+  textColor: string = '';
+  style: string = '';
 
   constructor(@Inject(TOAST_CONFIG) private config: ToastConfig) {
     this.toastConfig = this.config;
@@ -58,9 +60,7 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   }
 
   ngOnInit(): void {
-    if (this.toastConfig?.colors) {
-      this.getColors();
-    }
+    this.getColors();
     this.svgUrlIsFromSprite = this.toast.icon?.includes('.svg#') as boolean;
     if (this.toast?.infinite) return;
     this.duration = Number(this.toast.duration);
@@ -124,16 +124,24 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   }
 
   getColors(): void {
-    if (!this.toastConfig?.colors) return;
-    this.getToastBackgrounds();
+    this.getToastStyle();
     this.getTimebarColor();
   }
 
-  getToastBackgrounds(): void {
+  getToastStyle(): void {
+    this.textColor = this.getToastTextColor();
+    this.style = `--text-color: ${this.textColor};`;
     const colorHexCode: string = this.toastConfig?.colors?.[this.toast.type] as string;
     if (!colorHexCode) return;
     const darkenedColorHexCode = darkenHexColor(colorHexCode as string, .725)
-    this.linearGradient = `linear-gradient(45deg, ${darkenedColorHexCode}, ${colorHexCode})`;
+    this.linearGradient = this.config.colors?.autoGradient ? `linear-gradient(45deg, ${darkenedColorHexCode}, ${colorHexCode})` : colorHexCode;
+    this.style += `background: ${this.linearGradient}`;
+  }
+
+  getToastTextColor(): string {
+    const toastTypeText = this.toast.type + 'Text';
+    const textColorHexCode = this.config.colors?.[toastTypeText as 'successText' | 'dangerText' | 'infoText' | 'warningText'] || '#ffffff';
+    return textColorHexCode;
   }
 
   getTimebarColor(): void {

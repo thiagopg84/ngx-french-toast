@@ -18,14 +18,18 @@ import { FormsModule } from '@angular/forms';
       defaultDuration: 10000,
       position: ToastPosition.BOTTOM_RIGHT,
       colors: {
-        // success: '#58D77C',
-        // danger: '#f77676',
+        successText: '#ffff00',
+        success: '#125525',
+        timebar: '#ffff00',
+        autoGradient: true,
+        danger: '#6c0404',
+        dangerText: '#ffff00',
       },
-      limit: 3,
+      limit: 5,
       font: {
         contentFontSize: '13px',
         titleFontSize: '15px',
-        family: 'Athiti'
+        family: 'Athiti',
       }
     }),
     FormsModule

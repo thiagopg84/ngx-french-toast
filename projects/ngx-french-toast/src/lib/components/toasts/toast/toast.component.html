@@ -1,7 +1,7 @@
 <div (click)="toast.component ? null : destroyToast()" [class.visible]="isVisible" class="toast-container" [class]="toast.type" [class.dynamic]="toast.component ? true : false" [ngClass]="{
   'right': position === bottomRight || position === topRight,
   'left': position === bottomLeft || position === topLeft
-}" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [id]="toast._id" [style.background]="linearGradient">
+}" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [id]="toast._id" [style]="style">
   @if (toast.component) {
     <div class="close">
       <button class="icon" (click)="destroyToast()"></button>

@@ -61,11 +61,16 @@ import { FrenchToastModule, ToastPosition, ToastConfig } from 'ngx-french-toast'
 // optional configuration object:
 const config: ToastConfig = {
   colors: {
-    danger: '#a20000',
-    info: '#2d96f8',
-    success: '#2df877',
-    warning: '#f8bb2d',
-    timebar: 'linear-gradient(45deg, #2b6bbf, #10425b)' // or a single color
+    danger: '#a20000', // Background color for the danger toast
+    dangerText: '#ffffff', // Text color for the danger toast
+    info: '#2d96f8', // Background color for the info toast
+    infoText: '#ffffff', // Text color for the info toast
+    success: '#2df877', // Background color for the success toast
+    successText: '#ffffff', // Text color for the success toast
+    warning: '#f8bb2d', // Background color for the warning toast
+    warningText: '#ffffff', // Text color for the warning toast
+    timebar: 'linear-gradient(45deg, #2b6bbf, #10425b)', // Or a single color -- background color for the time bar
+    autoGradient: false, // Controls whether the background will be an automatically generated gradient or not based on single input colors
   },
   defaultDuration: 100000,
   position: ToastPosition.TOP_RIGHT, // As elegant as the Eiffel Tower!

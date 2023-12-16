@@ -10,7 +10,10 @@ export class FrenchToastModule {
     if (!config) {
       config = {
         position: ToastPosition.BOTTOM_RIGHT,
-        defaultDuration: 10000
+        defaultDuration: 10000,
+        colors: {
+          autoGradient: false
+        }
       }
     }
     return {
