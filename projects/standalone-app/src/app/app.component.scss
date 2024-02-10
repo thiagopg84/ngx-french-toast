@@ -1,0 +1,26 @@
+.selectors {
+  display: flex;
+  gap: .5rem;
+  margin-bottom: 1rem;
+  flex-direction: column;
+  max-width: 250px;
+
+  .fd-column {
+    display: flex;
+    flex-direction: column;
+
+    select, textarea, input[type="text"], input[type="number"] {
+      width: 100%;
+      max-width: 15rem;
+    }
+  }
+}
+
+.selectors *, .signature, .btns button {
+  font-family: 'Athiti';
+}
+
+.btns {
+  display: flex;
+  gap: 1rem;
+}
