@@ -3,7 +3,7 @@
   <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/master/projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="200px" />
 </p>
 
-### <a href="CHANGELOG.md"><b>Check the Changelog for updates! 📌 </b></a>
+### <a href="https://github.com/thiagopg84/ngx-french-toast/blob/master/CHANGELOG.md"><b>Check the Changelog for updates! 📌 </b></a>
 
 ### You can test all features in <a href="https://ngx-french-toast.netlify.app/"> ngx-french-toast playground app</a>.
 ---
@@ -26,16 +26,16 @@
   </thead>
   <tbody>
     <tr>
-      <td>14.0.0 - 15.2.10</td>
-      <td>1.0.0 - 1.3.0</td>
+      <td>14^ - 15^</td>
+      <td>1.3.x</td>
     </tr>
     <tr>
-      <td>16.2.0</td>
-      <td>1.4.0</td>
+      <td>16^</td>
+      <td>1.4.x</td>
     </tr>
     <tr>
-      <td>>= 17</td>
-      <td>2.0</td>
+      <td>17^</td>
+      <td>2.x</td>
     </tr>
   </tbody>
 </table>

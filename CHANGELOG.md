@@ -3,6 +3,24 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
+## **2.1.1** (2024-02-10)
+
+### Fixed
+- **Close Icon Color:** Previously, although changing text colors for each type of toast was supported, the text color setting did not apply to the close (`X`) icon. This issue has been addressed by updating the close icon styles in `toast.component.scss`:
+
+  ```diff
+  .icon::before, .icon::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 2px;
+  - background-color: #fff;
+  + background-color: var(--text-color);
+    transform-origin: center;
+  }
+  ```
+
+---
 ## **2.1.0** (2023-12-15)
 
 ### Added
