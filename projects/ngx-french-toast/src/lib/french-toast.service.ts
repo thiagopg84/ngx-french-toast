@@ -5,6 +5,9 @@ import { ToastInputModel } from './interfaces/interfaces';
 import { ToastType } from './enums/enums';
 import { ToastConfig } from './interfaces/interfaces';
 import { TOAST_CONFIG } from './toast.tokens';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { ToastsComponent } from './components/toasts/toasts.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +16,10 @@ export class ToastService {
 
   toast: BehaviorSubject<ToastModel | null> = new BehaviorSubject<ToastModel | null>(null);
   clearAll: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private overlayRef!: OverlayRef;
   private duration: number = 7000;
 
-  constructor(@Inject(TOAST_CONFIG) private config: ToastConfig) {
+  constructor(@Inject(TOAST_CONFIG) private config: ToastConfig, private overlay: Overlay) {
     if (this.config?.defaultDuration) {
       this.duration = this.config.defaultDuration;
     }
@@ -36,6 +40,14 @@ export class ToastService {
       context: toastInput.context
     };
     this.toast.next(newToast);
+    if (!this.overlayRef?.hasAttached()) this.createOverlay();
+  }
+
+  createOverlay(): void {
+    this.overlayRef = this.overlay.create();
+    const toastPortal = new ComponentPortal(ToastsComponent);
+    const componentRef = this.overlayRef.attach(toastPortal);
+    componentRef.instance.componentRef = componentRef;
   }
 
   private handleToast(toastInput: ToastInputModel, type: ToastType): void {
