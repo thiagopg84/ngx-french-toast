@@ -1,6 +1,6 @@
 # ngx-french-toast
 <p align="center">
-  <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/master/projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="134px" height="200px" />
+  <img src="logo.png" alt="ngx-french-toast logo" width="134px" height="200px" />
 </p>
 
 ### <a href="CHANGELOG.md"><b>Check the Changelog for updates! 📌 </b></a>
@@ -9,28 +9,25 @@
 ---
 # Features
 
-- Fully built in Angular 14, without any external dependencies. Oui, très indépendant!
+- Fully built in Angular, without any external dependencies. Oui, très indépendant!
 - Customizable toast appearance, including duration, colors, and positioning. Like a beret, you can style it to perfection!
 - Unique feature: Dynamically embed components within the toast for maximum flexibility and créativité. C'est magnifique!
 - Total control over toast visibility: `infinite` and `pinned` properties allow users to arrange toasts based on their importance and ensure critical messages stay in focus.
-
-<br>
-
-# Installation
+	@@ -20,14 +20,15 @@
 
 To install ngx-french-toast, simply follow these étapes:
 
-1. Run the following command to install the package via npm:
+### 1. Run the following command to install the package via npm:
 
 ```
 npm install ngx-french-toast
 ```
 
-2. Import the `FrenchToastModule` in your Angular module:
+### 2. Import the `FrenchToastModule` in your Angular module:
 
+#### Standard apps
 ```typescript
 import { FrenchToastModule, ToastPosition, ToastConfig } from 'ngx-french-toast';
-
 // optional configuration object:
 const config: ToastConfig = {
   colors: {
@@ -49,7 +46,6 @@ const config: ToastConfig = {
     family: 'Athiti' // Très élégant!
   }
 };
-
 @NgModule({
   imports: [
     // ...
@@ -60,13 +56,26 @@ const config: ToastConfig = {
 export class AppModule { }
 ```
 
-3. Add the `FrenchToastComponent` selector in your `app.component.html` (or wherever you want to):
-
-```html
-<french-toast></french-toast>
+#### Standalone apps
+```typescript
+import { provideFrenchToast, ToastPosition } from 'ngx-french-toast';
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideFrenchToast({
+      defaultDuration: 10000,
+      position: ToastPosition.BOTTOM_RIGHT,
+      limit: 2,
+      font: {
+        contentFontSize: '13px',
+        titleFontSize: '15px',
+        family: 'Athiti'
+      }
+    })
+  ]
+})
+  .catch((err) => console.error(err));
 ```
-
-4. Et voilà! You're ready to start using ngx-french-toast in your Angular application.
+### 3. Et voilà! You're ready to start using ngx-french-toast in your Angular application.
 
 <br>
 

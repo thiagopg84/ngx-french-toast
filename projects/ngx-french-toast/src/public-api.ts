@@ -8,3 +8,4 @@ export * from './lib/components/toasts/toasts.component';
 export * from './lib/components/toasts/toast/toast.component';
 export * from './lib/enums/enums';
 export * from './lib/interfaces/interfaces';
+export * from './lib/providers/french-toast.provider';

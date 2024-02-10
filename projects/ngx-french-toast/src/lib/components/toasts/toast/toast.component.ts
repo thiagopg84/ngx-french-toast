@@ -5,11 +5,18 @@ import { ToastConfig } from '../../../interfaces/interfaces';
 import { TOAST_CONFIG } from '../../../toast.tokens';
 import { ToastPosition } from '../../../enums/enums';
 import { darkenHexColor } from '../../../utils/utils';
+import { NgClass, NgIf, NgStyle } from '@angular/common';
 
 @Component({
-  selector: 'app-toast',
+  selector: 'toast',
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss', '../../../styles/common-styles.scss'],
+  standalone: true,
+  imports: [
+    NgClass,
+    NgIf,
+    NgStyle
+  ]
 })
 export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
   @HostListener("click", ["$event"])

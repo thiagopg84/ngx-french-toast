@@ -5,6 +5,6 @@
   'top-right': position === topRight
  }">
   <ng-container *ngFor="let toast of toasts">
-    <app-toast *ngIf="toast?.isVisible" [toast]="toast" (control)="control($event)"></app-toast>
+    <toast *ngIf="toast?.isVisible" [toast]="toast" (control)="control($event)"/>
   </ng-container>
 </div>

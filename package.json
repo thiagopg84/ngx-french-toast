@@ -7,7 +7,11 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "publish": "ng-packagr -p projects/ngx-french-toast/ng-package.json && cd dist/ngx-french-toast && npm publish"
+    "publish": "ng-packagr -p projects/ngx-french-toast/ng-package.json && cd dist/ngx-french-toast && npm publish",
+    "test-build": "ng-packagr -p projects/ngx-french-toast/ng-package.json",
+    "test-app": "ng s -o --project test-app",
+    "standalone-app": "ng s -o --project standalone-app",
+    "tarball": "cd dist && tar -cvzf ngx-french-toast.tar.gz ngx-french-toast"
   },
   "private": true,
   "dependencies": {
