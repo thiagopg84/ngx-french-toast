@@ -13,6 +13,9 @@ bootstrapApplication(AppComponent, {
         contentFontSize: '13px',
         titleFontSize: '15px',
         family: 'Athiti'
+      },
+      colors: {
+        timebar: '#ffff00'
       }
     })
   ]
