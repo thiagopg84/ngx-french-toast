@@ -13,7 +13,35 @@
 - Customizable toast appearance, including duration, colors, and positioning. Like a beret, you can style it to perfection!
 - Unique feature: Dynamically embed components within the toast for maximum flexibility and créativité. C'est magnifique!
 - Total control over toast visibility: `infinite` and `pinned` properties allow users to arrange toasts based on their importance and ensure critical messages stay in focus.
-	@@ -20,14 +20,15 @@
+<br>
+
+## Compatibility Matrix
+<table>
+  <thead>
+    <tr>
+      <th>Angular</th>
+      <th>ngx-french-toast</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>14.0.0 - 15.2.10</td>
+      <td>1.0.0 - 1.3.0</td>
+    </tr>
+    <tr>
+      <td>16.2.0</td>
+      <td>1.4.0</td>
+    </tr>
+    <tr>
+      <td>>= 17</td>
+      <td>2.0</td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+<br>
+
+# Installation
 
 To install ngx-french-toast, simply follow these étapes:
 
@@ -31,11 +59,16 @@ import { FrenchToastModule, ToastPosition, ToastConfig } from 'ngx-french-toast'
 // optional configuration object:
 const config: ToastConfig = {
   colors: {
-    danger: '#a20000',
-    info: '#2d96f8',
-    success: '#2df877',
-    warning: '#f8bb2d',
-    timebar: 'linear-gradient(45deg, #2b6bbf, #10425b)' // or a single color
+    danger: '#a20000', // Background color for the danger toast
+    dangerText: '#ffffff', // Text color for the danger toast
+    info: '#2d96f8', // Background color for the info toast
+    infoText: '#ffffff', // Text color for the info toast
+    success: '#2df877', // Background color for the success toast
+    successText: '#ffffff', // Text color for the success toast
+    warning: '#f8bb2d', // Background color for the warning toast
+    warningText: '#ffffff', // Text color for the warning toast
+    timebar: 'linear-gradient(45deg, #2b6bbf, #10425b)', // Or a single color -- background color for the time bar
+    autoGradient: false, // Controls whether the background will be an automatically generated gradient or not based on single input colors
   },
   defaultDuration: 100000,
   position: ToastPosition.TOP_RIGHT, // As elegant as the Eiffel Tower!
@@ -74,6 +107,12 @@ bootstrapApplication(AppComponent, {
   ]
 })
   .catch((err) => console.error(err));
+```
+### ⚠️ Attention! This step is no longer required.
+
+~~3. Add the `FrenchToastComponent` selector in your `app.component.html` (or wherever you want to):~~
+```diff
+- <french-toast></french-toast>
 ```
 ### 3. Et voilà! You're ready to start using ngx-french-toast in your Angular application.
 
