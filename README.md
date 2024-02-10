@@ -1,9 +1,9 @@
 # ngx-french-toast
 <p align="center">
-  <img src="logo.png" alt="ngx-french-toast logo" width="134px" height="200px" />
+  <img src="https://github.com/thiagopg84/ngx-french-toast/blob/1.4.x/logo.png?raw=true" alt="ngx-french-toast logo" width="134px" height="200px" />
 </p>
 
-### <a href="CHANGELOG.md"><b>Check the Changelog for updates! 📌 </b></a>
+### <a href="https://github.com/thiagopg84/ngx-french-toast/blob/1.4.x/CHANGELOG.md"><b>Check the Changelog for updates! 📌 </b></a>
 
 ### You can test all features in <a href="https://ngx-french-toast.netlify.app/"> ngx-french-toast playground app</a>.
 ---
@@ -25,16 +25,16 @@
   </thead>
   <tbody>
     <tr>
-      <td>14.0.0 - 15.2.10</td>
-      <td>1.0.0 - 1.3.0</td>
+      <td>14^ - 15^</td>
+      <td>1.3.x</td>
     </tr>
     <tr>
-      <td>16.2.0</td>
-      <td>1.4.0</td>
+      <td>16^</td>
+      <td>1.4.x</td>
     </tr>
     <tr>
-      <td>>= 17</td>
-      <td>2.0</td>
+      <td>17^</td>
+      <td>2.x</td>
     </tr>
   </tbody>
 </table>

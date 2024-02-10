@@ -3,31 +3,7 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
-## **1.3.1** (2024-02-10)
-
-### ⚠️ BREAKING CHANGES! ⚠️
-- **Angular/CDK Integration:** The toast rendering mechanism has been revamped using Angular Component Development Kit (CDK) Portals. Users no longer need to add the `<french-toast></french-toast>` selector to their templates. This change simplifies integration and provides a more streamlined user experience.
-
-### Added
-- **Standalone Application Support:** ngx-french-toast now can be initialized without the need for a module:
-```typescript
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideFrenchToast({
-      defaultDuration: 10000,
-      position: ToastPosition.BOTTOM_RIGHT,
-      limit: 2,
-      font: {
-        contentFontSize: '13px',
-        titleFontSize: '15px',
-        family: 'Athiti'
-      }
-    })
-  ]
-})
-  .catch((err) => console.error(err));
-```
-
+## **1.4.1** (2024-02-10)
 - **Colors Configuration:** Introducing a new feature that allows users to customize toast colors. Now, you have full control over the background and text colors for different types of toasts. See the updated configuration options in the documentation to get started. Don't forget that these are optional and the library provides fallback for every configuration.
 
 ```typescript
@@ -50,6 +26,30 @@ const config: ToastConfig = {
 
 ---
 
+## **1.4.0** (2023-12-10)
+
+### ⚠️ BREAKING CHANGES! ⚠️
+- **Angular/CDK Integration:** The toast rendering mechanism has been revamped using Angular Component Development Kit (CDK) Portals. Users no longer need to add the `<french-toast></french-toast>` selector to their templates. This change simplifies integration and provides a more streamlined user experience.
+- **Angular Update:** Migrated ngx-french-toast to Angular 16. Ensure that your Angular applications are also updated to the latest version for seamless integration.
+### Added
+- **Standalone Application Support:** ngx-french-toast now can be initialized without the need for a module:
+```typescript
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideFrenchToast({
+      defaultDuration: 10000,
+      position: ToastPosition.BOTTOM_RIGHT,
+      limit: 2,
+      font: {
+        contentFontSize: '13px',
+        titleFontSize: '15px',
+        family: 'Athiti'
+      }
+    })
+  ]
+})
+  .catch((err) => console.error(err));
+```
 ### Improved
 - `ToastComponent` and `ToastsComponent` are now Standalone.
 ---
