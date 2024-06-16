@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ToastComponent } from 'projects/ngx-french-toast/src/lib/components/toasts/toast/toast.component';
+import { ToastService } from 'projects/ngx-french-toast/src/lib/french-toast.service';
 
 @Component({
   selector: 'app-dynamic-component',
@@ -6,17 +8,15 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./dynamic-component.component.scss']
 })
 export class DynamicComponentComponent implements OnInit {
-
-  @Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false);
   context!: {
     content: string
   };
 
-  constructor() { }
+  constructor(private toast: ToastComponent, private toastService: ToastService) { }
 
   rate(rate: number): void {
     console.log(rate);
-    this.destroyToast.emit(true);
+    this.closeToast();
   }
 
   ngOnInit(): void {
@@ -24,4 +24,7 @@ export class DynamicComponentComponent implements OnInit {
     console.log(this.context.content);
   }
 
+  closeToast(): void {
+    this.toastService.destroyToast(this.toast)
+  }
 }

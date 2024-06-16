@@ -207,4 +207,10 @@ export interface ToastModel extends ToastInputModel {
    * @type {'success' | 'danger' | 'info' | 'warning'}
    */
   type: 'success' | 'danger' | 'info' | 'warning';
+
+  /**
+   * Unique ID used to destroy parent Toast when using an embedded component. Automatically generated. Please don't pass any values to this property.
+   * @type {string}
+   */
+  _uId: string;
 }

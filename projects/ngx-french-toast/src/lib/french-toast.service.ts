@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { ToastModel } from './interfaces/interfaces';
 import { ToastInputModel } from './interfaces/interfaces';
 import { ToastType } from './enums/enums';
@@ -8,6 +8,7 @@ import { TOAST_CONFIG } from './toast.tokens';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ToastsComponent } from './components/toasts/toasts.component';
+import { ToastComponent } from './components/toasts/toast/toast.component';
 
 
 @Injectable({
@@ -16,7 +17,8 @@ import { ToastsComponent } from './components/toasts/toasts.component';
 export class ToastService {
 
   toast: BehaviorSubject<ToastModel | null> = new BehaviorSubject<ToastModel | null>(null);
-  clearAll: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  clearAll = new Subject<void>();
+  clearToast = new Subject<string>();
   private overlayRef!: OverlayRef;
   private duration: number = 7000;
 
@@ -38,7 +40,8 @@ export class ToastService {
       component: toastInput.component,
       infinite: toastInput.infinite,
       pinned: toastInput.pinned,
-      context: toastInput.context
+      context: toastInput.context,
+      _uId: this.getUniqueId(6)
     };
     this.toast.next(newToast);
     if (!this.overlayRef?.hasAttached()) this.createOverlay();
@@ -74,7 +77,11 @@ export class ToastService {
   }
 
   clearAllToasts(): void {
-    this.clearAll.next(true);
+    this.clearAll.next();
+  }
+
+  destroyToast(toastComponent: ToastComponent): void {
+    this.clearToast.next(toastComponent.toast._uId);
   }
 
   private getUniqueId(parts: number): string {

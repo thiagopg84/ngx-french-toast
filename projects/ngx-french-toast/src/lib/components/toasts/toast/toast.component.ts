@@ -90,13 +90,6 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
       if (this.toast?.context) {
         this.component.instance.context = this.toast.context;
       }
-      this.component.instance?.destroyToast?.pipe(takeUntil(this.destroy$)).subscribe({
-        next: (res: boolean) => {
-          if (res) {
-            this.destroyToast();
-          }
-        }
-      })
     }, 0);
   }
 

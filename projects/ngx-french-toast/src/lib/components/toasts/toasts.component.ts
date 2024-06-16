@@ -87,38 +87,54 @@ export class ToastsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getToasts(): void {
-    this.toastService.toast
-      .pipe(
-        takeUntil(this.destroy$),
-        filter((toast) => !!toast)
-      )
-      .subscribe({
-        next: (toast) => {
-          const toastElement: ToastModel = toast as ToastModel;
-          const pinnedToastOnScreen = this.toasts.some((tst) => tst?.pinned);
-          if (pinnedToastOnScreen && !toast?.pinned) {
-            const firstPinnedToastIndex = this.toasts.indexOf(
-              this.toasts.find((e) => e.pinned) as ToastModel
-            );
-            this.toasts.splice(firstPinnedToastIndex, 0, toastElement);
-            return;
-          }
-          this.toasts.push(toast as ToastModel);
-        },
-      });
+    this.listenForToasts();
+    this.listenForDestroyAllToasts();
+    this.listenForDestroyToast();
+  }
 
+  listenForToasts(): void {
+    this.toastService.toast
+    .pipe(
+      takeUntil(this.destroy$),
+      filter((toast) => !!toast)
+    )
+    .subscribe({
+      next: (toast) => {
+        const toastElement: ToastModel = toast as ToastModel;
+        const pinnedToastOnScreen = this.toasts.some((tst) => tst?.pinned);
+        if (pinnedToastOnScreen && !toast?.pinned) {
+          const firstPinnedToastIndex = this.toasts.indexOf(
+            this.toasts.find((e) => e.pinned) as ToastModel
+          );
+          this.toasts.splice(firstPinnedToastIndex, 0, toastElement);
+          return;
+        }
+        this.toasts.push(toast as ToastModel);
+      },
+    });
+  }
+
+  listenForDestroyAllToasts(): void {
     this.toastService.clearAll
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (res) => {
-          if (res) {
-            if (!this.toastsComponents) return;
-            this.toastsComponents.toArray().forEach((e) => {
-              e.destroyToast();
-            });
-          }
-        },
-      });
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: () => {
+        if (!this.toastsComponents) return;
+        this.toastsComponents.toArray().forEach((e) => {
+          e.destroyToast();
+        });
+      },
+    });
+  }
+
+  listenForDestroyToast(): void {
+    this.toastService.clearToast
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (uniqueId: string) => {
+        this.toastsComponents.toArray().find(toast => toast.toast._uId === uniqueId)?.destroyToast();
+      }
+    })
   }
 
   control(toast: ToastModel): void {

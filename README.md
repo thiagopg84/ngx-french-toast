@@ -37,6 +37,10 @@
       <td>17^</td>
       <td>2.x</td>
     </tr>
+    <tr>
+      <td>18^</td>
+      <td>18.x</td>
+    </tr>
   </tbody>
 </table>
 <hr>
@@ -111,12 +115,6 @@ bootstrapApplication(AppComponent, {
   ]
 })
   .catch((err) => console.error(err));
-```
-### ⚠️ Attention! This step is no longer required.
-
-~~3. Add the `FrenchToastComponent` selector in your `app.component.html` (or wherever you want to):~~
-```diff
-- <french-toast></french-toast>
 ```
 
 ### 3. Et voilà! You're ready to start using ngx-french-toast in your Angular application.
@@ -218,13 +216,26 @@ context: { name: string, email: string }; // the type is up to you :)
 ## Programmatically closing the parent toast from the embedded component
 To close the parent toast from the embedded component, users should follow these steps:
 
-1. In the embedded component (e.g., `ExampleComponent`), define an `EventEmitter` named `destroyToast` as an `@Output()` property:
+### ⚠️ Attention! This is a breaking change.
+~~1. In the embedded component (e.g., `ExampleComponent`), define an `EventEmitter` named `destroyToast` as an `@Output()` property:~~
 
+```diff
+- @Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+```
+1. In the embedded component (e.g., `ExampleComponent`), inject an instance of `ToastService` and the parent component (`ToastComponent`) as dependencies:
 ```typescript
-@Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+import { ToastComponent, ToastService } from 'ngx-french-toast';
+
+constructor(private toastService: ToastService, private toast: ToastComponent) {}
 ```
 
-2. Emit the `destroyToast` event with `true` as the value when the desired action occurs.
+2. Call the `destroyToast` method from `ToastService`, passing the parent component as a parameter:
+
+```typescript
+closeToast(): void {
+  this.toastService.destroyToast(this.toast);
+}
+```
 
 <br>
 
@@ -242,19 +253,20 @@ import { Output, EventEmitter } from '@angular/core';
 })
 export class ExampleComponent {
   context: { name: string, email: string };
-  @Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+
+  constructor(private toastService: ToastService, private toast: ToastComponent) {}
 
   rate(rate: number): void {
     this.someApi.rate(rate).subscribe({
       next: () => {
-        this.destroyToast.emit(true);
+        this.toastService.destroyToast(this.toast);
       }
     });
   }
 }
 ```
 
-The `destroyToast` event emitter allows the embedded component to communicate with the parent toast and close it. Très beau!
+Passing the parent component to the `destroyToast` method allows `ToastService` to find the `ToastComponent` within visible toasts and close it. Très beau!
 
 <br>
 

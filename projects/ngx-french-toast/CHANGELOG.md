@@ -3,6 +3,31 @@
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
 ---
+## **18.0.0** (2024-05-16)
+### ⚠️ BREAKING CHANGES! ⚠️
+- **Angular Update:** Following our update policy, we implemented support for and migrated to the latest *Angular 18*. Consequently, this release is exclusively compatible with Angular 18 projects. Also, to simplify the process for developers to find the correct version of `ngx-french-toast` for their Angular applications, we've aligned our version number with the Angular version. This means we've jumped from 2.1.1 to 18.0.0.
+
+<p>Ensure that your Angular applications are upgraded to version 18 to take advantage of its enhanced features and optimizations.</p>
+
+- **Closing parent Toast when using embedded components:**  Previously, developers had to create an `EventEmitter` and emit a `boolean` to close the parent component. To streamline this process and adopt a cleaner approach, a new method has been introduced. Now, to close the parent toast from an embedded component, follow these steps:
+
+  1. In the embedded component (e.g., `ExampleComponent`), inject an instance of `ToastService` and the parent component (`ToastComponent`) as dependencies:
+    ```typescript
+  import { ToastComponent, ToastService } from 'ngx-french-toast';
+
+  constructor(private toastService: ToastService, private toast: ToastComponent) {}
+  ```
+
+  2. Call the `destroyToast` method from `ToastService`, passing the parent component as a parameter:
+  ```typescript
+  closeToast(): void {
+    this.toastService.destroyToast(this.toast);
+  }
+  ```
+
+  Additionally, a new `_uId` property has been introduced to the interface `ToastModel`. This property is automatically generated and should not be manually assigned. It allows `ToastService` to accurately identify and close individual toast components.
+---
+
 ## **2.1.1** (2024-02-10)
 
 ### Fixed
