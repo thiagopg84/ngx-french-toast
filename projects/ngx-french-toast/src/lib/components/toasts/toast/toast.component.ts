@@ -1,4 +1,18 @@
-import { AfterContentInit, AfterViewInit, Component, ComponentRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  ComponentRef,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ToastModel } from '../../../interfaces/interfaces';
 import { ToastConfig } from '../../../interfaces/interfaces';
@@ -12,18 +26,17 @@ import { NgClass, NgIf, NgStyle } from '@angular/common';
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss', '../../../styles/common-styles.scss'],
   standalone: true,
-  imports: [
-    NgClass,
-    NgIf,
-    NgStyle
-  ]
+  imports: [NgClass, NgIf, NgStyle],
 })
-export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
-  @HostListener("click", ["$event"])
+export class ToastComponent
+  implements OnInit, AfterContentInit, AfterViewInit, OnDestroy
+{
+  @HostListener('click', ['$event'])
   public onClick(event: any): void {
     event.stopPropagation();
   }
-  @ViewChild('container', { read: ViewContainerRef }) container!: ViewContainerRef;
+  @ViewChild('container', { read: ViewContainerRef })
+  container!: ViewContainerRef;
   @Input() toast!: ToastModel;
   @Input() currentTheme!: string;
   @Output() control: EventEmitter<ToastModel> = new EventEmitter<ToastModel>();
@@ -31,7 +44,7 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   isVisible: boolean = false;
   duration!: number;
   remainingTime!: number;
-  timeout!: number;
+  timeout!: any;
   resumeTime!: Date;
   component!: ComponentRef<any>;
   svgUrlIsFromSprite: boolean = false;
@@ -66,7 +79,7 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
     this.duration = Number(this.toast.duration);
     this.remainingTime = Number(this.toast.duration);
     this.resumeTime = new Date();
-    this.timeout = window.setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.destroyToast();
     }, this.duration);
   }
@@ -111,7 +124,7 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   onMouseLeave() {
     if (this.toast?.infinite) return;
     this.resumeTime = new Date();
-    this.timeout = window.setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.destroyToast();
     }, this.remainingTime);
   }
@@ -124,23 +137,34 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, 
   getToastStyle(): void {
     this.textColor = this.getToastTextColor();
     this.style = `--text-color: ${this.textColor};`;
-    const colorHexCode: string = this.toastConfig?.colors?.[this.toast.type] as string;
+    const colorHexCode: string = this.toastConfig?.colors?.[
+      this.toast.type
+    ] as string;
     if (!colorHexCode) return;
-    const darkenedColorHexCode = darkenHexColor(colorHexCode as string, .725)
-    this.linearGradient = this.config.colors?.autoGradient ? `linear-gradient(45deg, ${darkenedColorHexCode}, ${colorHexCode})` : colorHexCode;
+    const darkenedColorHexCode = darkenHexColor(colorHexCode as string, 0.725);
+    this.linearGradient = this.config.colors?.autoGradient
+      ? `linear-gradient(45deg, ${darkenedColorHexCode}, ${colorHexCode})`
+      : colorHexCode;
     this.style += `background: ${this.linearGradient}`;
   }
 
   getToastTextColor(): string {
     const toastTypeText = this.toast.type + 'Text';
-    const textColorHexCode = this.config.colors?.[toastTypeText as 'successText' | 'dangerText' | 'infoText' | 'warningText'] || '#ffffff';
+    const textColorHexCode =
+      this.config.colors?.[
+        toastTypeText as
+          | 'successText'
+          | 'dangerText'
+          | 'infoText'
+          | 'warningText'
+      ] || '#ffffff';
     return textColorHexCode;
   }
 
   getTimebarColor(): void {
     if (!this.toastConfig.colors?.timebar) return;
     this.timebarColor = {
-      background: this.toastConfig.colors?.timebar as string
+      background: this.toastConfig.colors?.timebar as string,
     };
   }
 }
