@@ -2,6 +2,16 @@
 
 All notable changes to the `ngx-french-toast` library will be documented in this file.
 
+---
+
+## **19.0.0** (2025-06-13)
+
+- **Angular Update:** Following our update policy, we implemented support for and migrated to the latest _Angular 19_. Consequently, this release is exclusively compatible with Angular 19 projects.
+
+- **Visual Overhaul:** We've teamed up with a UX/UI designer to deliver a modernized, cleaner, and more consistent look for the toast component. This update enhances visual clarity, improves accessibility, and aligns the styling with contemporary UI standards — making your toasts feel right at home in any Angular 19 app.
+
+---
+
 ## **18.0.1** (2024-10-20)
 
 ### Fixed

@@ -3,9 +3,10 @@ import { ToastComponent } from 'projects/ngx-french-toast/src/lib/components/toa
 import { ToastService } from 'projects/ngx-french-toast/src/lib/french-toast.service';
 
 @Component({
-  selector: 'app-dynamic-component',
-  templateUrl: './dynamic-component.component.html',
-  styleUrls: ['./dynamic-component.component.scss']
+    selector: 'app-dynamic-component',
+    templateUrl: './dynamic-component.component.html',
+    styleUrls: ['./dynamic-component.component.scss'],
+    standalone: false
 })
 export class DynamicComponentComponent implements OnInit {
   context!: {

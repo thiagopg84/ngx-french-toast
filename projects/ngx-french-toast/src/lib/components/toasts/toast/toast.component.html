@@ -1,35 +1,44 @@
-<div (click)="toast.component ? null : destroyToast()" [class.visible]="isVisible" class="toast-container" [class]="toast.type" [class.dynamic]="toast.component ? true : false" [ngClass]="{
-  'right': position === bottomRight || position === topRight,
-  'left': position === bottomLeft || position === topLeft
-}" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [id]="toast._id" [style]="style">
+<div
+  class="toast-container"
+  [id]="toast._id"
+  [style]="style"
+  [class.right]="position === bottomRight || position === topRight"
+  [class.left]="position === bottomLeft || position === topLeft"
+  [class.visible]="isVisible"
+  [class]="toast.type"
+  [class.dynamic]="toast.component ? true : false"
+  (click)="toast.component ? null : destroyToast()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
   @if (toast.component) {
     <div class="close">
       <button class="icon" (click)="destroyToast()"></button>
     </div>
   }
   @if (!toast.infinite) {
-    <div class="toast-timer" [style]="'--animation-speed: ' + duration/1000 + 's;'" [ngStyle]="timebarColor"></div>
+    <div class="toast-timer" [style]="'--animation-speed: ' + duration / 1000 + 's;'" [ngStyle]="timebarColor"></div>
   }
   <div class="toast-group">
-    <div class="toast-group__top" [ngClass]="toast.icon ? 'has-icon' : ''">
-      @if (toast.icon) {
-        <div class="toast-group__icon">
-          @if (svgUrlIsFromSprite) {
-            <svg>
-              <use [attr.xlink:href]="toast.icon"></use>
-            </svg>
-          } @else {
-            <img [src]="toast.icon">
-          }
-        </div>
-      }
-      <p class="toast-title">{{ toast.title }}</p>
-    </div>
-    <div class="toast-group__bottom">
-      @if (toast.component) {
-        <ng-template #container></ng-template>
-      } @else {
-        <p class="toast-content">{{ toast.content }}</p>
+    @if (toast.icon) {
+      <div class="toast-group__icon">
+        @if (svgUrlIsFromSprite) {
+          <svg>
+            <use [attr.xlink:href]="toast.icon"></use>
+          </svg>
+        } @else {
+          <img [src]="toast.icon" />
+        }
+      </div>
+    }
+    <div class="toast-group__text">
+      <span class="toast-group__text--title">{{ toast.title }}</span>
+      @if (toast.component || toast.content) {
+        @if (toast.component) {
+          <ng-template #container></ng-template>
+        } @else {
+          <span class="toast-group__text--content">{{ toast.content }}</span>
+        }
       }
     </div>
   </div>

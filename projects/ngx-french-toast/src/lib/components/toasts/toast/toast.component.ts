@@ -7,30 +7,25 @@ import {
   HostListener,
   Inject,
   Input,
-  OnDestroy,
   OnInit,
   Output,
   ViewChild,
-  ViewContainerRef,
+  ViewContainerRef
 } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
 import { ToastModel } from '../../../interfaces/interfaces';
 import { ToastConfig } from '../../../interfaces/interfaces';
 import { TOAST_CONFIG } from '../../../toast.tokens';
 import { ToastPosition } from '../../../enums/enums';
 import { darkenHexColor } from '../../../utils/utils';
-import { NgClass, NgIf, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'toast',
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.scss', '../../../styles/common-styles.scss'],
-  standalone: true,
-  imports: [NgClass, NgIf, NgStyle],
+  imports: [NgStyle]
 })
-export class ToastComponent
-  implements OnInit, AfterContentInit, AfterViewInit, OnDestroy
-{
+export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit {
   @HostListener('click', ['$event'])
   public onClick(event: any): void {
     event.stopPropagation();
@@ -40,7 +35,6 @@ export class ToastComponent
   @Input() toast!: ToastModel;
   @Input() currentTheme!: string;
   @Output() control: EventEmitter<ToastModel> = new EventEmitter<ToastModel>();
-  private destroy$ = new Subject<void>();
   isVisible: boolean = false;
   duration!: number;
   remainingTime!: number;
@@ -90,11 +84,6 @@ export class ToastComponent
     }, 10);
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   createDynamicToast(): void {
     this.container.clear();
     setTimeout(() => {
@@ -137,9 +126,7 @@ export class ToastComponent
   getToastStyle(): void {
     this.textColor = this.getToastTextColor();
     this.style = `--text-color: ${this.textColor};`;
-    const colorHexCode: string = this.toastConfig?.colors?.[
-      this.toast.type
-    ] as string;
+    const colorHexCode: string = this.toastConfig?.colors?.[this.toast.type] as string;
     if (!colorHexCode) return;
     const darkenedColorHexCode = darkenHexColor(colorHexCode as string, 0.725);
     this.linearGradient = this.config.colors?.autoGradient
@@ -151,20 +138,14 @@ export class ToastComponent
   getToastTextColor(): string {
     const toastTypeText = this.toast.type + 'Text';
     const textColorHexCode =
-      this.config.colors?.[
-        toastTypeText as
-          | 'successText'
-          | 'dangerText'
-          | 'infoText'
-          | 'warningText'
-      ] || '#ffffff';
+      this.config.colors?.[toastTypeText as 'successText' | 'dangerText' | 'infoText' | 'warningText'] || '#ffffff';
     return textColorHexCode;
   }
 
   getTimebarColor(): void {
     if (!this.toastConfig.colors?.timebar) return;
     this.timebarColor = {
-      background: this.toastConfig.colors?.timebar as string,
+      background: this.toastConfig.colors?.timebar as string
     };
   }
 }

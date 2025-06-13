@@ -1,12 +1,15 @@
 # ngx-french-toast
+
 <p align="center">
-  <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/master/projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="200px" />
+  <img src="./projects/ngx-french-toast/logo.png" alt="ngx-french-toast logo" width="200px" />
 </p>
 
 ### <a href="https://github.com/thiagopg84/ngx-french-toast/blob/master/CHANGELOG.md"><b>Check the Changelog for updates! 📌 </b></a>
 
 ### You can test all features in <a href="https://ngx-french-toast.netlify.app/"> ngx-french-toast playground app</a>.
+
 ---
+
 # Features
 
 - Fully built in Angular, without any external dependencies. Oui, très indépendant!
@@ -17,6 +20,7 @@
 <br>
 
 ## Compatibility Matrix
+
 <table>
   <thead>
     <tr>
@@ -41,6 +45,10 @@
       <td>18^</td>
       <td>18.x</td>
     </tr>
+    <tr>
+      <td>19^</td>
+      <td>19.x</td>
+    </tr>
   </tbody>
 </table>
 <hr>
@@ -59,6 +67,7 @@ npm install ngx-french-toast
 ### 2. Import the `FrenchToastModule` in your Angular module:
 
 #### Standard apps
+
 ```typescript
 import { FrenchToastModule, ToastPosition, ToastConfig } from 'ngx-french-toast';
 
@@ -74,7 +83,7 @@ const config: ToastConfig = {
     warning: '#f8bb2d', // Background color for the warning toast
     warningText: '#ffffff', // Text color for the warning toast
     timebar: 'linear-gradient(45deg, #2b6bbf, #10425b)', // Or a single color -- background color for the time bar
-    autoGradient: false, // Controls whether the background will be an automatically generated gradient or not based on single input colors
+    autoGradient: false // Controls whether the background will be an automatically generated gradient or not based on single input colors
   },
   defaultDuration: 100000,
   position: ToastPosition.TOP_RIGHT, // As elegant as the Eiffel Tower!
@@ -90,13 +99,14 @@ const config: ToastConfig = {
   imports: [
     // ...
     FrenchToastModule.forRoot(config)
-  ],
+  ]
   // ...
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 #### Standalone apps
+
 ```typescript
 import { provideFrenchToast, ToastPosition } from 'ngx-french-toast';
 
@@ -113,8 +123,7 @@ bootstrapApplication(AppComponent, {
       }
     })
   ]
-})
-  .catch((err) => console.error(err));
+}).catch((err) => console.error(err));
 ```
 
 ### 3. Et voilà! You're ready to start using ngx-french-toast in your Angular application.
@@ -131,9 +140,7 @@ import { ToastService } from 'ngx-french-toast';
 
 @Component({
   selector: 'app-example',
-  template: `
-    <button (click)="showToast()">Show Toast</button>
-  `
+  template: ` <button (click)="showToast()">Show Toast</button> `
 })
 export class ExampleComponent {
   constructor(private toastService: ToastService) {}
@@ -141,11 +148,12 @@ export class ExampleComponent {
   showToast(): void {
     this.toastService.success({
       title: 'Knock, knock!',
-      content: 'Who\'s there? Eiffel. Eiffel who? Eiffel in love with you!' // Mon Dieu, l'amour!
+      content: "Who's there? Eiffel. Eiffel who? Eiffel in love with you!" // Mon Dieu, l'amour!
     });
   }
 }
 ```
+
 <br>
 
 # Toast Types
@@ -165,6 +173,7 @@ this.toastService.danger({ title: 'Danger', content: 'Something went wrong! Oh l
 this.toastService.info({ title: 'Info', content: 'Here are some important details for you.' });
 this.toastService.warning({ title: 'Warning', content: 'Be cautious! Danger may be lurking nearby.' });
 ```
+
 <br>
 
 # Toast Input Object
@@ -172,21 +181,23 @@ this.toastService.warning({ title: 'Warning', content: 'Be cautious! Danger may 
 Each toast has the following customizable properties:
 
 ```typescript
-    this.toastService.success({
-      title: 'Toast Title',
-      content: 'Lorem ipsum dolor sit amet.', // this will be ignored if you're embedding a component ;)
-      _id: `success-toast--${this.id}`, // if you leave it blank, the ID will be automatically generated
-      component: SomeComponent,
-      duration: 10000,
-      icon: '../assets/svg/sprite.svg#icon-success', // or a URL of a .png, for example
-      infinite: true, // if infinite is true, the duration will be ignored
-      pinned: true, // when set to true, this toast will remain fixed in its position even if new toasts are added, unless the next toast is also pinned
-      context: { // this will be available within SomeComponent!
-        name: 'Jean Pierre',
-        email: 'jetaime@lesbleus.fr'
-      }
-    });
+this.toastService.success({
+  title: 'Toast Title',
+  content: 'Lorem ipsum dolor sit amet.', // this will be ignored if you're embedding a component ;)
+  _id: `success-toast--${this.id}`, // if you leave it blank, the ID will be automatically generated
+  component: SomeComponent,
+  duration: 10000,
+  icon: '../assets/svg/sprite.svg#icon-success', // or a URL of a .png, for example
+  infinite: true, // if infinite is true, the duration will be ignored
+  pinned: true, // when set to true, this toast will remain fixed in its position even if new toasts are added, unless the next toast is also pinned
+  context: {
+    // this will be available within SomeComponent!
+    name: 'Jean Pierre',
+    email: 'jetaime@lesbleus.fr'
+  }
+});
 ```
+
 <br>
 
 # Embedding Components Dynamically
@@ -207,22 +218,29 @@ this.toastService.success({
 <br>
 
 ## Grabbing the `context` object from the embedded component
+
 To have access to the `context` object from within your dynamically embedded component, you just have to create a `context` variable in your embedded component to receive the content you declared when calling the `ToastService`:
+
 ```typescript
 context: { name: string, email: string }; // the type is up to you :)
 ```
+
 <br>
 
 ## Programmatically closing the parent toast from the embedded component
+
 To close the parent toast from the embedded component, users should follow these steps:
 
 ### ⚠️ Attention! This is a breaking change.
+
 ~~1. In the embedded component (e.g., `ExampleComponent`), define an `EventEmitter` named `destroyToast` as an `@Output()` property:~~
 
 ```diff
 - @Output() destroyToast: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 ```
+
 1. In the embedded component (e.g., `ExampleComponent`), inject an instance of `ToastService` and the parent component (`ToastComponent`) as dependencies:
+
 ```typescript
 import { ToastComponent, ToastService } from 'ngx-french-toast';
 
@@ -252,9 +270,12 @@ import { Output, EventEmitter } from '@angular/core';
   `
 })
 export class ExampleComponent {
-  context: { name: string, email: string };
+  context: { name: string; email: string };
 
-  constructor(private toastService: ToastService, private toast: ToastComponent) {}
+  constructor(
+    private toastService: ToastService,
+    private toast: ToastComponent
+  ) {}
 
   rate(rate: number): void {
     this.someApi.rate(rate).subscribe({
@@ -312,6 +333,6 @@ Contributions to ngx-french-toast are welcome! If you find a bug, have a feature
 
 If you have any questions, suggestions, or feedback, you can reach out to me via <a mailto="thiago2k9@gmail.com">thiago2k9@gmail.com</a> or find me on <a href="https://www.linkedin.com/in/thiagoguterman" target="_blank">LinkedIn</a>. Don't hesitate to say "Bonjour!" and share your thoughts. Let's connect and make the ngx-french-toast community even stronger! 💪🥐
 
-Made with ❤️ (and lots of croissants) for Angular  <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/dec8ce282b401a89bc4a4bb536a0662888290eda/projects/ngx-french-toast/angular.svg" alt="Angular Logo" width="15px" height="15px" />.
+Made with ❤️ (and lots of croissants) for Angular <img src="https://raw.githubusercontent.com/thiagopg84/ngx-french-toast/dec8ce282b401a89bc4a4bb536a0662888290eda/projects/ngx-french-toast/angular.svg" alt="Angular Logo" width="15px" height="15px" />.
 
 Merci beaucoup for using ngx-french-toast! I hope it brings a touch of créativité to your Angular applications. Bon appétit! 🍞

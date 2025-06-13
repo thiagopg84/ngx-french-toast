@@ -5,11 +5,10 @@ import { ToastService } from 'projects/ngx-french-toast/src/lib/french-toast.ser
 
 
 @Component({
-  selector: 'app-dynamic-component',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './dynamic-component.component.html',
-  styleUrls: ['./dynamic-component.component.scss']
+    selector: 'app-dynamic-component',
+    imports: [CommonModule],
+    templateUrl: './dynamic-component.component.html',
+    styleUrls: ['./dynamic-component.component.scss']
 })
 export class DynamicComponentComponent implements OnInit {
   context!: {

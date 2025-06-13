@@ -8,33 +8,30 @@ import { DynamicComponentComponent } from './dynamic-component/dynamic-component
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DynamicComponentComponent
-  ],
+  declarations: [AppComponent, DynamicComponentComponent],
   imports: [
     BrowserModule,
     FrenchToastModule.forRoot({
       defaultDuration: 10000,
       position: ToastPosition.BOTTOM_RIGHT,
       colors: {
-        successText: '#ffff00',
-        success: '#125525',
-        timebar: '#ffff00',
-        autoGradient: true,
+        successText: '#fff',
+        success: '##28a961',
+        timebar: 'rgba(13, 13, 13, .40)',
+        autoGradient: false,
         danger: '#6c0404',
         dangerText: '#ffff00',
       },
       limit: 5,
       font: {
-        contentFontSize: '13px',
-        titleFontSize: '15px',
+        contentFontSize: '14px',
+        titleFontSize: '16px',
         family: 'Athiti',
-      }
+      },
     }),
-    FormsModule
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -4,7 +4,7 @@
   transition: all 0.3s;
   border-radius: 8px;
   overflow: hidden;
-  padding: 1rem .8rem .8rem 1rem;
+  padding: 0.625rem 1rem;
   position: relative;
 
   @media screen and (max-width: 768px) {
@@ -13,8 +13,8 @@
 
   .close {
     position: absolute;
-    top: .5rem;
-    right: .5rem;
+    top: 0.5rem;
+    right: 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,15 +29,16 @@
       border: 0;
       outline: 0;
       background: transparent;
-      transition: all .3s;
+      transition: all 0.3s;
       cursor: pointer;
     }
 
     .icon:hover {
-      opacity: .5;
+      opacity: 0.5;
     }
 
-    .icon::before, .icon::after {
+    .icon::before,
+    .icon::after {
       content: '';
       position: absolute;
       width: 15px;
@@ -57,34 +58,32 @@
 
   .toast-group {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
 
-    .toast-group__top {
+    .toast-group__icon {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      justify-content: flex-start;
+      align-items: flex-start;
+      height: max-content;
+    }
 
-      .toast-group__icon {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-      }
+    .toast-group__text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
 
-      p.toast-title {
+      .toast-group__text--title {
         font-size: var(--title-font-size);
-        font-weight: 700;
-        text-transform: uppercase;
+        font-weight: 600;
         color: var(--text-color);
         line-height: 1.2rem;
       }
-    }
 
-    .toast-group__bottom {
-      p.toast-content {
+      .toast-group__text--content {
         font-size: var(--content-font-size);
         font-weight: 500;
         color: var(--text-color);
+        line-height: 130%;
       }
     }
   }
@@ -121,7 +120,7 @@
 }
 
 .toast-container.visible:hover {
-  opacity: .90;
+  opacity: 0.9;
   .toast-timer {
     animation-play-state: paused;
   }
@@ -141,7 +140,7 @@
 }
 
 .toast-container.success {
-  background: linear-gradient(45deg, #00bd6e, #58D77C);
+  background: linear-gradient(45deg, #00bd6e, #58d77c);
 }
 
 .toast-container.info {
@@ -155,10 +154,10 @@
 .toast-container svg {
   color: var(--text-color);
   fill: var(--text-color);
-  width: 30px;
-  height: 30px;
+  width: 1rem;
+  height: 1rem;
 }
 
 .toast-container img {
-  width: 30px;
+  width: 1rem;
 }

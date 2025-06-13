@@ -4,6 +4,14 @@ All notable changes to the `ngx-french-toast` library will be documented in this
 
 ---
 
+## **19.0.0** (2025-06-13)
+
+- **Angular Update:** Following our update policy, we implemented support for and migrated to the latest _Angular 19_. Consequently, this release is exclusively compatible with Angular 19 projects.
+
+- **Visual Overhaul:** We've teamed up with a UX/UI designer to deliver a modernized, cleaner, and more consistent look for the toast component. This update enhances visual clarity, improves accessibility, and aligns the styling with contemporary UI standards — making your toasts feel right at home in any Angular 19 app.
+
+---
+
 ## **18.0.1** (2024-10-20)
 
 ### Fixed
@@ -69,21 +77,21 @@ All notable changes to the `ngx-french-toast` library will be documented in this
 - **Colors Configuration:** Introducing a new feature that allows users to customize toast colors. Now, you have full control over the background and text colors for different types of toasts. See the updated configuration options in the documentation to get started. Don't forget that these are optional and the library provides fallback for every configuration.
 
 ```typescript
-import { FrenchToastModule, ToastPosition, ToastConfig } from "ngx-french-toast";
+import { FrenchToastModule, ToastPosition, ToastConfig } from 'ngx-french-toast';
 
 const config: ToastConfig = {
   colors: {
-    danger: "#a20000", // Background color for the danger toast
-    dangerText: "#ffffff", // Text color for the danger toast
-    info: "#2d96f8", // Background color for the info toast
-    infoText: "#ffffff", // Text color for the info toast
-    success: "#2df877", // Background color for the success toast
-    successText: "#ffffff", // Text color for the success toast
-    warning: "#f8bb2d", // Background color for the warning toast
-    warningText: "#ffffff", // Text color for the warning toast
-    timebar: "linear-gradient(45deg, #2b6bbf, #10425b)", // Background color for the time bar
-    autoGradient: false, // Controls whether the background will be an automatically generated gradient or not based on single input colors
-  },
+    danger: '#a20000', // Background color for the danger toast
+    dangerText: '#ffffff', // Text color for the danger toast
+    info: '#2d96f8', // Background color for the info toast
+    infoText: '#ffffff', // Text color for the info toast
+    success: '#2df877', // Background color for the success toast
+    successText: '#ffffff', // Text color for the success toast
+    warning: '#f8bb2d', // Background color for the warning toast
+    warningText: '#ffffff', // Text color for the warning toast
+    timebar: 'linear-gradient(45deg, #2b6bbf, #10425b)', // Background color for the time bar
+    autoGradient: false // Controls whether the background will be an automatically generated gradient or not based on single input colors
+  }
 };
 ```
 
@@ -118,12 +126,12 @@ bootstrapApplication(AppComponent, {
       position: ToastPosition.BOTTOM_RIGHT,
       limit: 2,
       font: {
-        contentFontSize: "13px",
-        titleFontSize: "15px",
-        family: "Athiti",
-      },
-    }),
-  ],
+        contentFontSize: '13px',
+        titleFontSize: '15px',
+        family: 'Athiti'
+      }
+    })
+  ]
 }).catch((err) => console.error(err));
 ```
 
@@ -213,9 +221,9 @@ bootstrapApplication(AppComponent, {
 
   ```typescript
   this.toastService.success({
-    title: "I shall remain!",
-    content: "Other toasts shall flock around me :P",
-    pinned: true,
+    title: 'I shall remain!',
+    content: 'Other toasts shall flock around me :P',
+    pinned: true
   });
   ```
 
@@ -229,9 +237,9 @@ bootstrapApplication(AppComponent, {
 
   ```typescript
   this.toastService.success({
-    title: "I will not go away!",
+    title: 'I will not go away!',
     content: "I will not expire and won't have a countdown :)",
-    infinite: true,
+    infinite: true
   });
   ```
 

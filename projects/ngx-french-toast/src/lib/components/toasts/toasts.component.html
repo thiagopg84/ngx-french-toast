@@ -1,14 +1,16 @@
 @if (toasts.length) {
-  <div class="toasts-container" [style]="style" [ngClass]="{
-    'bottom-right': position === bottomRight,
-    'bottom-left': position === bottomLeft,
-    'top-left': position === topLeft,
-    'top-right': position === topRight
-  }">
+  <div
+    class="toasts-container"
+    [style]="style"
+    [class.bottom-right]="position === bottomRight"
+    [class.bottom-left]="position === bottomLeft"
+    [class.top-left]="position === topLeft"
+    [class.top-right]="position === topRight"
+  >
     @for (toast of toasts; track toast._id) {
       @if (toast?.isVisible) {
-        <toast [toast]="toast" (control)="control($event)"/>
+        <toast [toast]="toast" (control)="control($event)" />
       }
     }
-</div>
+  </div>
 }
