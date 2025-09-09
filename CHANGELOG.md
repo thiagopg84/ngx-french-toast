@@ -4,6 +4,14 @@ All notable changes to the `ngx-french-toast` library will be documented in this
 
 ---
 
+## **20.0.0** (2025-09-09)
+
+- **Angular Update:** Following our update policy, we implemented support for and migrated to the latest _Angular 20_. Consequently, this release is exclusively compatible with Angular 20 projects.
+
+- **Best practices:** Following Angular's latest best practices, we've refactored toast management to use Angular Signals API and updated to latest Angular syntax (input(), output(), viewChildren(), etc.).
+
+---
+
 ## **19.0.0** (2025-06-13)
 
 - **Angular Update:** Following our update policy, we implemented support for and migrated to the latest _Angular 19_. Consequently, this release is exclusively compatible with Angular 19 projects.
@@ -29,7 +37,6 @@ All notable changes to the `ngx-french-toast` library will be documented in this
 <p>Ensure that your Angular applications are upgraded to version 18 to take advantage of its enhanced features and optimizations.</p>
 
 - **Closing parent Toast when using embedded components:** Previously, developers had to create an `EventEmitter` and emit a `boolean` to close the parent component. To streamline this process and adopt a cleaner approach, a new method has been introduced. Now, to close the parent toast from an embedded component, follow these steps:
-
   1. In the embedded component (e.g., `ExampleComponent`), inject an instance of `ToastService` and the parent component (`ToastComponent`) as dependencies:
 
   ```typescript

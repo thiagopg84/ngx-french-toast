@@ -1,4 +1,4 @@
-@if (toasts.length) {
+@if (toasts().length) {
   <div
     class="toasts-container"
     [style]="style"
@@ -7,7 +7,7 @@
     [class.top-left]="position === topLeft"
     [class.top-right]="position === topRight"
   >
-    @for (toast of toasts; track toast._id) {
+    @for (toast of toasts(); track toast._id) {
       @if (toast?.isVisible) {
         <toast [toast]="toast" (control)="control($event)" />
       }

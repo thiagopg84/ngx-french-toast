@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
 import { ToastComponent } from 'projects/ngx-french-toast/src/lib/components/toasts/toast/toast.component';
 import { ToastService } from 'projects/ngx-french-toast/src/lib/french-toast.service';
 
-
 @Component({
-    selector: 'app-dynamic-component',
-    imports: [CommonModule],
-    templateUrl: './dynamic-component.component.html',
-    styleUrls: ['./dynamic-component.component.scss']
+  selector: 'app-dynamic-component',
+  imports: [],
+  templateUrl: './dynamic-component.component.html',
+  styleUrls: ['./dynamic-component.component.scss'],
 })
 export class DynamicComponentComponent implements OnInit {
-  context!: {
-    content: string
-  };
+  private toastService = inject(ToastService);
+  private toast = inject(ToastComponent);
 
-  constructor(private toastService: ToastService, private toast: ToastComponent) { }
+  context!: {
+    content: string;
+  };
 
   rate(rate: number): void {
     console.log(rate);
@@ -23,7 +22,7 @@ export class DynamicComponentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Dynamically injected data:')
+    console.log('Dynamically injected data:');
     console.log(this.context.content);
   }
 

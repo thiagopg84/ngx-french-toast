@@ -1,15 +1,5 @@
-import {
-  AfterViewInit,
-  Component,
-  ComponentRef,
-  DestroyRef,
-  inject,
-  Inject,
-  OnInit,
-  QueryList,
-  ViewChildren
-} from '@angular/core';
-import { delay, filter, startWith } from 'rxjs';
+import { Component, ComponentRef, DestroyRef, inject, OnInit, signal, viewChildren } from '@angular/core';
+import { filter } from 'rxjs';
 import { ToastModel } from '../../interfaces/interfaces';
 import { ToastComponent } from './toast/toast.component';
 import { ToastService } from '../../french-toast.service';
@@ -24,9 +14,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./toasts.component.scss', '../../styles/common-styles.scss'],
   imports: [ToastComponent]
 })
-export class ToastsComponent implements OnInit, AfterViewInit {
-  toasts: ToastModel[] = [];
-  @ViewChildren(ToastComponent) toastsComponents!: QueryList<ToastComponent>;
+export class ToastsComponent implements OnInit {
+  private toastService = inject(ToastService);
+  private config = inject<ToastConfig>(TOAST_CONFIG);
+  private destroyRef = inject(DestroyRef);
+  readonly toastsComponents = viewChildren(ToastComponent);
+  toasts = signal<ToastModel[]>([]);
   position: ToastPosition = ToastPosition.BOTTOM_RIGHT;
   bottomRight: ToastPosition = ToastPosition.BOTTOM_RIGHT;
   bottomLeft: ToastPosition = ToastPosition.BOTTOM_LEFT;
@@ -37,29 +30,14 @@ export class ToastsComponent implements OnInit, AfterViewInit {
   contentFontSize: string = '';
   style: string = '';
   componentRef!: ComponentRef<ToastsComponent>;
-  private destroyRef = inject(DestroyRef);
 
-  constructor(
-    private toastService: ToastService,
-    @Inject(TOAST_CONFIG) private config: ToastConfig
-  ) {
+  constructor() {
     if (this.config.position) this.position = this.config.position;
   }
 
   ngOnInit(): void {
     this.getToasts();
     this.style = this.getStyles();
-  }
-
-  ngAfterViewInit(): void {
-    this.toastsComponents.changes.pipe(startWith(''), delay(0), takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: () => {
-        const reachedLimit = this.toastsComponents.toArray().length > (this.config.limit || 3);
-        if (reachedLimit) {
-          this.toastsComponents.toArray()[0].destroyToast();
-        }
-      }
-    });
   }
 
   getStyles(): string {
@@ -83,14 +61,23 @@ export class ToastsComponent implements OnInit, AfterViewInit {
       )
       .subscribe({
         next: (toast) => {
-          const toastElement: ToastModel = toast as ToastModel;
-          const pinnedToastOnScreen = this.toasts.some((tst) => tst?.pinned);
-          if (pinnedToastOnScreen && !toast?.pinned) {
-            const firstPinnedToastIndex = this.toasts.indexOf(this.toasts.find((e) => e.pinned) as ToastModel);
-            this.toasts.splice(firstPinnedToastIndex, 0, toastElement);
-            return;
+          const toastElement: ToastModel = { ...toast } as ToastModel;
+          const currentToasts = this.toasts();
+          const limit = this.config.limit || 3;
+          const updatedToasts = [...currentToasts, toastElement];
+          this.toasts.set(updatedToasts);
+
+          if (updatedToasts.length > limit) {
+            setTimeout(() => {
+              const allToastsArePinned = currentToasts.every((t) => t.pinned);
+              const toastToRemove = allToastsArePinned ? updatedToasts[0] : updatedToasts.find((t) => !t.pinned);
+              if (toastToRemove) {
+                this.toastsComponents()
+                  .find((comp) => comp.toast()._uId === toastToRemove._uId)
+                  ?.destroyToast();
+              }
+            }, 100);
           }
-          this.toasts.push(toast as ToastModel);
         }
       });
   }
@@ -98,8 +85,9 @@ export class ToastsComponent implements OnInit, AfterViewInit {
   listenForDestroyAllToasts(): void {
     this.toastService.clearAll.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
-        if (!this.toastsComponents) return;
-        this.toastsComponents.toArray().forEach((e) => {
+        const toastsComponents = this.toastsComponents();
+        if (!toastsComponents) return;
+        toastsComponents.forEach((e) => {
           e.destroyToast();
         });
       }
@@ -109,18 +97,20 @@ export class ToastsComponent implements OnInit, AfterViewInit {
   listenForDestroyToast(): void {
     this.toastService.clearToast.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (uniqueId: string) => {
-        this.toastsComponents
-          .toArray()
-          .find((toast) => toast.toast._uId === uniqueId)
+        this.toastsComponents()
+          .find((toast) => toast.toast()._uId === uniqueId)
           ?.destroyToast();
       }
     });
   }
 
   control(toast: ToastModel): void {
-    const index = this.toasts.indexOf(toast);
-    this.toasts.splice(index, 1);
-    if (this.toasts.length === 0) {
+    const toasts = this.toasts();
+    const index = toasts.indexOf(toast);
+    toasts[index].isVisible = false;
+    toasts.splice(index, 1);
+    this.toasts.set(toasts);
+    if (this.toasts().length === 0) {
       this.componentRef.destroy();
     }
   }

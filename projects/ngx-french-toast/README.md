@@ -49,6 +49,10 @@
       <td>19^</td>
       <td>19.x</td>
     </tr>
+    <tr>
+      <td>20^</td>
+      <td>20.x</td>
+    </tr>
   </tbody>
 </table>
 <hr>

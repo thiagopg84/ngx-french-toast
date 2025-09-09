@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ToastModel } from './interfaces/interfaces';
 import { ToastInputModel } from './interfaces/interfaces';
@@ -10,19 +10,20 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { ToastsComponent } from './components/toasts/toasts.component';
 import { ToastComponent } from './components/toasts/toast/toast.component';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
+  private config = inject<ToastConfig>(TOAST_CONFIG);
+  private overlay = inject(Overlay);
+  private overlayRef!: OverlayRef;
+  private duration: number = 7000;
 
   toast: BehaviorSubject<ToastModel | null> = new BehaviorSubject<ToastModel | null>(null);
   clearAll = new Subject<void>();
   clearToast = new Subject<string>();
-  private overlayRef!: OverlayRef;
-  private duration: number = 7000;
 
-  constructor(@Inject(TOAST_CONFIG) private config: ToastConfig, private overlay: Overlay) {
+  constructor() {
     if (this.config?.defaultDuration) {
       this.duration = this.config.defaultDuration;
     }
@@ -81,12 +82,12 @@ export class ToastService {
   }
 
   destroyToast(toastComponent: ToastComponent): void {
-    this.clearToast.next(toastComponent.toast._uId);
+    this.clearToast.next(toastComponent.toast()._uId);
   }
 
   private getUniqueId(parts: number): string {
     const stringArr = [];
-    for(let i = 0; i< parts; i++){
+    for (let i = 0; i < parts; i++) {
       // tslint:disable-next-line:no-bitwise
       const S4 = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
       stringArr.push(S4);

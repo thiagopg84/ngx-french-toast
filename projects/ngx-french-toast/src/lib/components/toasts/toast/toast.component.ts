@@ -3,14 +3,15 @@ import {
   AfterViewInit,
   Component,
   ComponentRef,
-  EventEmitter,
   HostListener,
-  Inject,
-  Input,
   OnInit,
-  Output,
-  ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
+  input,
+  output,
+  viewChild,
+  inject,
+  signal,
+  OnDestroy
 } from '@angular/core';
 import { ToastModel } from '../../../interfaces/interfaces';
 import { ToastConfig } from '../../../interfaces/interfaces';
@@ -25,17 +26,18 @@ import { NgStyle } from '@angular/common';
   styleUrls: ['./toast.component.scss', '../../../styles/common-styles.scss'],
   imports: [NgStyle]
 })
-export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit {
+export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
+  private config = inject<ToastConfig>(TOAST_CONFIG);
+
   @HostListener('click', ['$event'])
   public onClick(event: any): void {
     event.stopPropagation();
   }
-  @ViewChild('container', { read: ViewContainerRef })
-  container!: ViewContainerRef;
-  @Input() toast!: ToastModel;
-  @Input() currentTheme!: string;
-  @Output() control: EventEmitter<ToastModel> = new EventEmitter<ToastModel>();
-  isVisible: boolean = false;
+  readonly container = viewChild.required('container', { read: ViewContainerRef });
+  readonly toast = input.required<ToastModel>();
+  readonly currentTheme = input<string>();
+  readonly control = output<ToastModel>();
+  isVisible = signal(false);
   duration!: number;
   remainingTime!: number;
   timeout!: any;
@@ -53,7 +55,7 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit {
   textColor: string = '';
   style: string = '';
 
-  constructor(@Inject(TOAST_CONFIG) private config: ToastConfig) {
+  constructor() {
     this.toastConfig = this.config;
     if (this.toastConfig.position) {
       this.position = this.toastConfig.position;
@@ -61,17 +63,18 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.toast.component) {
+    if (this.toast().component) {
       this.createDynamicToast();
     }
   }
 
   ngOnInit(): void {
     this.getColors();
-    this.svgUrlIsFromSprite = this.toast.icon?.includes('.svg#') as boolean;
-    if (this.toast?.infinite) return;
-    this.duration = Number(this.toast.duration);
-    this.remainingTime = Number(this.toast.duration);
+    const toast = this.toast();
+    this.svgUrlIsFromSprite = toast.icon?.includes('.svg#') as boolean;
+    if (toast?.infinite) return;
+    this.duration = Number(toast.duration);
+    this.remainingTime = Number(toast.duration);
     this.resumeTime = new Date();
     this.timeout = setTimeout(() => {
       this.destroyToast();
@@ -80,38 +83,40 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit {
 
   ngAfterContentInit(): void {
     setTimeout(() => {
-      this.isVisible = true;
+      this.isVisible.set(true);
     }, 10);
   }
 
+  ngOnDestroy(): void {
+    clearTimeout(this.timeout);
+  }
+
   createDynamicToast(): void {
-    this.container.clear();
-    setTimeout(() => {
-      this.component = this.container.createComponent(this.toast.component);
-      this.component.instance.content = this.toast.content;
-      if (this.toast?.context) {
-        this.component.instance.context = this.toast.context;
-      }
-    }, 0);
+    this.container().clear();
+    this.component = this.container().createComponent(this.toast().component);
+    this.component.instance.content = this.toast().content;
+    const toast = this.toast();
+    if (toast?.context) {
+      this.component.instance.context = toast.context;
+    }
   }
 
   destroyToast() {
-    this.isVisible = false;
+    this.isVisible.set(false);
     setTimeout(() => {
-      this.toast.isVisible = false;
-      this.control.emit(this.toast);
+      this.control.emit(this.toast());
     }, 100);
   }
 
   onMouseEnter() {
-    if (this.toast?.infinite) return;
+    if (this.toast()?.infinite) return;
     clearTimeout(this.timeout);
     const diff = new Date().getTime() - this.resumeTime.getTime();
     this.remainingTime -= diff;
   }
 
   onMouseLeave() {
-    if (this.toast?.infinite) return;
+    if (this.toast()?.infinite) return;
     this.resumeTime = new Date();
     this.timeout = setTimeout(() => {
       this.destroyToast();
@@ -126,7 +131,7 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit {
   getToastStyle(): void {
     this.textColor = this.getToastTextColor();
     this.style = `--text-color: ${this.textColor};`;
-    const colorHexCode: string = this.toastConfig?.colors?.[this.toast.type] as string;
+    const colorHexCode: string = this.toastConfig?.colors?.[this.toast().type] as string;
     if (!colorHexCode) return;
     const darkenedColorHexCode = darkenHexColor(colorHexCode as string, 0.725);
     this.linearGradient = this.config.colors?.autoGradient
@@ -136,7 +141,7 @@ export class ToastComponent implements OnInit, AfterContentInit, AfterViewInit {
   }
 
   getToastTextColor(): string {
-    const toastTypeText = this.toast.type + 'Text';
+    const toastTypeText = this.toast().type + 'Text';
     const textColorHexCode =
       this.config.colors?.[toastTypeText as 'successText' | 'dangerText' | 'infoText' | 'warningText'] || '#ffffff';
     return textColorHexCode;

@@ -1,11 +1,11 @@
 {
   "name": "ngx-french-toast",
-  "version": "19.0.0",
+  "version": "20.0.0",
   "license": "Apache-2.0",
   "peerDependencies": {
-    "@angular/common": "19",
-    "@angular/core": "19",
-    "@angular/cdk": "19"
+    "@angular/common": "20",
+    "@angular/core": "20",
+    "@angular/cdk": "20"
   },
   "repository": {
     "url": "https://github.com/thiagopg84/ngx-french-toast/tree/master/projects/ngx-french-toast"
