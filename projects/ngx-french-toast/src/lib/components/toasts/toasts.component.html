@@ -7,10 +7,8 @@
     [class.top-left]="position === topLeft"
     [class.top-right]="position === topRight"
   >
-    @for (toast of toasts(); track toast._id) {
-      @if (toast?.isVisible) {
-        <toast [toast]="toast" (control)="control($event)" />
-      }
+    @for (toast of toasts(); track toast._uId) {
+      <toast [toast]="toast" />
     }
   </div>
 }

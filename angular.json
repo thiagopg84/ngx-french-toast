@@ -25,11 +25,11 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "projects/ngx-french-toast/src/test.ts",
+            "runner": "vitest",
             "tsConfig": "projects/ngx-french-toast/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-french-toast/karma.conf.js"
+            "buildTarget": "ngx-french-toast:build:development"
           }
         }
       }
@@ -117,21 +117,11 @@
           }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "projects/test-app/src/test.ts",
-            "polyfills": "projects/test-app/src/polyfills.ts",
+            "runner": "vitest",
             "tsConfig": "projects/test-app/tsconfig.spec.json",
-            "karmaConfig": "projects/test-app/karma.conf.js",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/test-app/src/favicon.ico",
-              "projects/test-app/src/assets"
-            ],
-            "styles": [
-              "projects/test-app/src/styles.scss"
-            ],
-            "scripts": []
+            "buildTarget": "test-app:build:development"
           }
         }
       }
@@ -220,22 +210,11 @@
           }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "runner": "vitest",
             "tsConfig": "projects/standalone-app/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/standalone-app/src/favicon.ico",
-              "projects/standalone-app/src/assets"
-            ],
-            "styles": [
-              "projects/standalone-app/src/styles.scss"
-            ],
-            "scripts": []
+            "buildTarget": "standalone-app:build:development"
           }
         }
       }

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\thiag\\\\Desktop\\\\GitHub\\\\ngx-french-toast\" -Force)",
+      "Bash(Select-Object Name, FullName)",
+      "Bash(npx ng *)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('devDependencies',{}\\), indent=2\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('angular.json'\\)\\); print\\(json.dumps\\(d['projects']['ngx-french-toast'].get\\('architect',{}\\), indent=2\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('package.json'\\)\\); print\\(json.dumps\\(d.get\\('scripts',{}\\), indent=2\\)\\)\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(list\\(d.get\\('builders',{}\\).keys\\(\\)\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('angular.json'\\)\\); import json; [print\\(p, json.dumps\\(c.get\\('architect',{}\\).get\\('test',{}\\), indent=2\\)\\) for p,c in d['projects'].items\\(\\) if 'test' in c.get\\('architect',{}\\)]\")",
+      "Bash(npm install *)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\({k: v for k,v in d.items\\(\\) if k in ['required','properties']}, indent=2\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('package.json'\\)\\); print\\('vitest' in d.get\\('devDependencies',{}\\), d.get\\('devDependencies',{}\\).get\\('vitest','not found'\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('node_modules/@angular/build/package.json'\\)\\); print\\('version:', d['version']\\); print\\('peerDeps:', json.dumps\\(d.get\\('peerDependencies',{}\\), indent=2\\)\\)\")"
+    ]
+  }
+}

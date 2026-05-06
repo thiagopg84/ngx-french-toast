@@ -6,14 +6,14 @@
   [class.left]="position === bottomLeft || position === topLeft"
   [class.visible]="isVisible()"
   [class]="toast().type"
-  [class.dynamic]="toast().component ? true : false"
-  (click)="toast().component ? null : destroyToast()"
+  [class.dynamic]="toast().component"
+  (click)="toast().component ? null : dismiss()"
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseLeave()"
 >
   @if (toast().component) {
     <div class="close">
-      <button class="icon" (click)="destroyToast()"></button>
+      <button class="icon" (click)="dismiss()"></button>
     </div>
   }
   @if (!toast().infinite) {

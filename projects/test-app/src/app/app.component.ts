@@ -29,7 +29,7 @@ export class AppComponent {
       title: this.title,
       content: this.dynamicComponent ? null : this.content,
       duration: this.duration,
-      component: this.dynamicComponent ? DynamicComponentComponent : null,
+      component: this.dynamicComponent ? DynamicComponentComponent : undefined,
       icon: this.icon ? '../assets/svg/sprite.svg#icon-add-marker' : null,
       infinite: this.infinite,
       pinned: this.pinned,

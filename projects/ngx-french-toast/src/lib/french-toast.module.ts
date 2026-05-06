@@ -1,25 +1,17 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ToastConfig } from './interfaces/interfaces';
-import { ToastPosition } from './enums/enums';
-import { TOAST_CONFIG } from './toast.tokens';
+import { TOAST_CONFIG, TOASTS_CONTAINER } from './toast.tokens';
+import { ToastsComponent } from './components/toasts/toasts.component';
 
 @NgModule({})
 
 export class FrenchToastModule {
-  static forRoot(config?: ToastConfig): ModuleWithProviders<FrenchToastModule> {
-    if (!config) {
-      config = {
-        position: ToastPosition.BOTTOM_RIGHT,
-        defaultDuration: 10000,
-        colors: {
-          autoGradient: false
-        }
-      }
-    }
+  static forRoot(config: Partial<ToastConfig> = {}): ModuleWithProviders<FrenchToastModule> {
     return {
       ngModule: FrenchToastModule,
       providers: [
-        { provide: TOAST_CONFIG, useValue: config }
+        { provide: TOAST_CONFIG, useValue: config },
+        { provide: TOASTS_CONTAINER, useValue: ToastsComponent }
       ]
     };
   }

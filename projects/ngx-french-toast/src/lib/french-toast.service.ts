@@ -1,97 +1,104 @@
-import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { ToastModel } from './interfaces/interfaces';
-import { ToastInputModel } from './interfaces/interfaces';
+import { Injectable, Type, inject, signal } from '@angular/core';
+import { ToastConfig, ToastInputModel, ToastModel } from './interfaces/interfaces';
 import { ToastType } from './enums/enums';
-import { ToastConfig } from './interfaces/interfaces';
-import { TOAST_CONFIG } from './toast.tokens';
+import { TOAST_CONFIG, TOASTS_CONTAINER } from './toast.tokens';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ToastsComponent } from './components/toasts/toasts.component';
-import { ToastComponent } from './components/toasts/toast/toast.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
-  private config = inject<ToastConfig>(TOAST_CONFIG);
-  private overlay = inject(Overlay);
-  private overlayRef!: OverlayRef;
-  private duration: number = 7000;
+  private readonly config = inject<ToastConfig>(TOAST_CONFIG);
+  private readonly overlay = inject(Overlay);
+  private readonly toastsContainer = inject<Type<any>>(TOASTS_CONTAINER, { optional: true });
+  private readonly _toasts = signal<ToastModel[]>([]);
+  private readonly defaultDuration: number;
+  private overlayRef: OverlayRef | null = null;
 
-  toast: BehaviorSubject<ToastModel | null> = new BehaviorSubject<ToastModel | null>(null);
-  clearAll = new Subject<void>();
-  clearToast = new Subject<string>();
+  /** Read-only view of active toasts — consumed by ToastsComponent. */
+  readonly toasts = this._toasts.asReadonly();
 
   constructor() {
-    if (this.config?.defaultDuration) {
-      this.duration = this.config.defaultDuration;
-    }
-  }
-
-  private addToast(toastInput: ToastInputModel, type: ToastType): void {
-    const newToast: ToastModel = {
-      _id: toastInput._id,
-      title: toastInput.title,
-      content: toastInput.content,
-      isVisible: true,
-      duration: toastInput.duration,
-      icon: toastInput?.icon ?? null,
-      type,
-      component: toastInput.component,
-      infinite: toastInput.infinite,
-      pinned: toastInput.pinned,
-      context: toastInput.context,
-      _uId: this.getUniqueId(6)
-    };
-    this.toast.next(newToast);
-    if (!this.overlayRef?.hasAttached()) this.createOverlay();
-  }
-
-  createOverlay(): void {
-    this.overlayRef = this.overlay.create();
-    const toastPortal = new ComponentPortal(ToastsComponent);
-    const componentRef = this.overlayRef.attach(toastPortal);
-    componentRef.instance.componentRef = componentRef;
-  }
-
-  private handleToast(toastInput: ToastInputModel, type: ToastType): void {
-    toastInput._id = toastInput?._id ?? this.getUniqueId(5);
-    toastInput.duration = toastInput?.duration ?? this.duration;
-    this.addToast(toastInput, type);
+    this.defaultDuration = this.config?.defaultDuration ?? 7000;
   }
 
   success(toastInput: ToastInputModel): void {
-    this.handleToast(toastInput, ToastType.SUCCESS);
+    this.add(toastInput, ToastType.SUCCESS);
   }
 
   danger(toastInput: ToastInputModel): void {
-    this.handleToast(toastInput, ToastType.DANGER);
+    this.add(toastInput, ToastType.DANGER);
   }
 
   info(toastInput: ToastInputModel): void {
-    this.handleToast(toastInput, ToastType.INFO);
+    this.add(toastInput, ToastType.INFO);
   }
 
   warning(toastInput: ToastInputModel): void {
-    this.handleToast(toastInput, ToastType.WARNING);
+    this.add(toastInput, ToastType.WARNING);
   }
 
   clearAllToasts(): void {
-    this.clearAll.next();
+    this._toasts.update((toasts) => toasts.map((t) => ({ ...t, _markedForRemoval: true })));
   }
 
-  destroyToast(toastComponent: ToastComponent): void {
-    this.clearToast.next(toastComponent.toast()._uId);
+  destroyToast(toastComponent: { toast(): { _uId: string } }): void {
+    const uid = toastComponent.toast()._uId;
+    this._toasts.update((toasts) =>
+      toasts.map((t) => (t._uId === uid ? { ...t, _markedForRemoval: true } : t))
+    );
   }
 
-  private getUniqueId(parts: number): string {
-    const stringArr = [];
-    for (let i = 0; i < parts; i++) {
-      // tslint:disable-next-line:no-bitwise
-      const S4 = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-      stringArr.push(S4);
+  /**
+   * @internal — called by ToastComponent after its exit animation completes.
+   */
+  remove(uid: string): void {
+    this._toasts.update((toasts) => toasts.filter((t) => t._uId !== uid));
+    if (this._toasts().length === 0) {
+      this.overlayRef?.dispose();
+      this.overlayRef = null;
     }
-    return stringArr.join('');
+  }
+
+  private add(toastInput: ToastInputModel, type: ToastType): void {
+    const toast: ToastModel = {
+      ...toastInput,
+      _id: toastInput._id ?? this.generateId(),
+      _uId: this.generateId(),
+      type,
+      isVisible: true,
+      duration: toastInput.duration ?? this.defaultDuration,
+    };
+
+    const limit = this.config?.limit ?? 3;
+
+    this._toasts.update((toasts) => {
+      const updated = [...toasts, toast];
+      if (updated.length > limit) {
+        const allPinned = updated.every((t) => t.pinned);
+        const idx = allPinned ? 0 : updated.findIndex((t) => !t.pinned);
+        if (idx !== -1) {
+          updated[idx] = { ...updated[idx], _markedForRemoval: true };
+        }
+      }
+      return updated;
+    });
+
+    if (!this.overlayRef?.hasAttached()) {
+      this.createOverlay();
+    }
+  }
+
+  private createOverlay(): void {
+    if (!this.toastsContainer) return;
+    this.overlayRef = this.overlay.create();
+    this.overlayRef.attach(new ComponentPortal(this.toastsContainer));
+  }
+
+  private generateId(): string {
+    return typeof crypto !== 'undefined' && crypto.randomUUID
+      ? crypto.randomUUID()
+      : Math.random().toString(36).slice(2) + Date.now().toString(36);
   }
 }

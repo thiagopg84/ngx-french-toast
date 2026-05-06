@@ -139,15 +139,16 @@ bootstrapApplication(AppComponent, {
 Here's a simple example demonstrating how to use ngx-french-toast:
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ToastService } from 'ngx-french-toast';
 
 @Component({
+  standalone: true,
   selector: 'app-example',
-  template: ` <button (click)="showToast()">Show Toast</button> `
+  template: `<button (click)="showToast()">Show Toast</button>`
 })
 export class ExampleComponent {
-  constructor(private toastService: ToastService) {}
+  private toastService = inject(ToastService);
 
   showToast(): void {
     this.toastService.success({
@@ -246,9 +247,11 @@ To close the parent toast from the embedded component, users should follow these
 1. In the embedded component (e.g., `ExampleComponent`), inject an instance of `ToastService` and the parent component (`ToastComponent`) as dependencies:
 
 ```typescript
+import { inject } from '@angular/core';
 import { ToastComponent, ToastService } from 'ngx-french-toast';
 
-constructor(private toastService: ToastService, private toast: ToastComponent) {}
+private toastService = inject(ToastService);
+private toast = inject(ToastComponent);
 ```
 
 2. Call the `destroyToast` method from `ToastService`, passing the parent component as a parameter:
@@ -264,22 +267,22 @@ closeToast(): void {
 To summarize, here's an example for the whole section:
 
 ```typescript
-import { Output, EventEmitter } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ToastComponent, ToastService } from 'ngx-french-toast';
 
 @Component({
+  standalone: true,
   selector: 'app-example',
   template: `
     <p>My email: {{ context.email }}</p>
-    <button (click)="rate(5)">Five stars!</button>;
+    <button (click)="rate(5)">Five stars!</button>
   `
 })
 export class ExampleComponent {
   context: { name: string; email: string };
 
-  constructor(
-    private toastService: ToastService,
-    private toast: ToastComponent
-  ) {}
+  private toastService = inject(ToastService);
+  private toast = inject(ToastComponent);
 
   rate(rate: number): void {
     this.someApi.rate(rate).subscribe({

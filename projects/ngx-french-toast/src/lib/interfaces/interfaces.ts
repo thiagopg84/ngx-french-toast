@@ -1,3 +1,4 @@
+import { Type } from '@angular/core';
 import { ToastPosition } from '../enums/enums';
 
 /**
@@ -167,9 +168,9 @@ export interface ToastInputModel {
 
   /**
    * A dynamically imported component within the toast.
-   * @type {any}
+   * @type {Type<any>}
    */
-  component?: any;
+  component?: Type<any>;
 
   /**
    * Whether or not the toast should persist indefinitely.
@@ -213,4 +214,7 @@ export interface ToastModel extends ToastInputModel {
    * @type {string}
    */
   _uId: string;
+
+  /** @internal */
+  _markedForRemoval?: boolean;
 }
