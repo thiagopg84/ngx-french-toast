@@ -4,6 +4,24 @@ All notable changes to the `ngx-french-toast` library will be documented in this
 
 ---
 
+## **20.1.0** (2026-05-06)
+
+### Refactored
+
+- **Pure Signals architecture:** Toast state management has been fully migrated from RxJS (`BehaviorSubject`, `Subject`) to Angular Signals. The `ToastService` now exposes a read-only `toasts` signal consumed directly by `ToastsComponent`, eliminating all manual subscriptions and `takeUntilDestroyed` boilerplate.
+
+- **Reliable animated removal:** Toast dismissal now follows a `_markedForRemoval` + `effect()` pattern. When a toast is removed (by timeout, user click, limit enforcement, or `clearAllToasts()`), the service marks it in the signal synchronously. Each `ToastComponent` reacts via `effect()`, plays the exit animation, and only then removes itself from the array. This eliminates the race condition that previously caused the limit to be ignored when toasts were added rapidly.
+
+- **Overlay component provided via dependency injection:** `ToastsComponent` is now provided through the `TOASTS_CONTAINER` injection token instead of being statically imported by `ToastService`. This breaks the circular module dependency (`ToastService` → `ToastsComponent` → `ToastComponent` → `ToastService`) that caused issues in test environments.
+
+- **Consistent defaults:** `FrenchToastModule.forRoot()` now accepts `Partial<ToastConfig>` with an empty object as the default, delegating all fallback values to the service — the same behaviour as `provideFrenchToast()`. Previously, NgModule users without explicit config would receive a `defaultDuration` of `10000ms` while standalone users would receive `7000ms`.
+
+- **Test suite migrated to Vitest:** Replaced Karma with Angular 20's native `@angular/build:unit-test` builder running Vitest. All 30 tests pass with `provideZonelessChangeDetection()`.
+
+- **Internal cleanup:** Removed unused `currentTheme` input, `toastConfig` alias, `linearGradient` class field, `DestroyRef` import, and `OnInit` lifecycle hook from `ToastsComponent`. Position and style fields are now `readonly`.
+
+---
+
 ## **20.0.0** (2025-09-09)
 
 - **Angular Update:** Following our update policy, we implemented support for and migrated to the latest _Angular 20_. Consequently, this release is exclusively compatible with Angular 20 projects.
