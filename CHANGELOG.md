@@ -4,6 +4,12 @@ All notable changes to the `ngx-french-toast` library will be documented in this
 
 ---
 
+## **21.0.0** (2026-06-09)
+
+- **Angular Update:** Following our update policy, we implemented support for and migrated to the latest _Angular 21_. Consequently, this release is exclusively compatible with Angular 21 projects.
+
+---
+
 ## **20.1.0** (2026-05-06)
 
 ### Refactored

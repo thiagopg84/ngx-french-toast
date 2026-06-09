@@ -53,6 +53,10 @@
       <td>20^</td>
       <td>20.x</td>
     </tr>
+    <tr>
+      <td>21^</td>
+      <td>21.x</td>
+    </tr>
   </tbody>
 </table>
 <hr>
